@@ -1,0 +1,85 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "ca01ec016155e8526c048163a7f9f390",
+    "entities": [
+      {
+        "tableName": "drivers_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `broadcastName` TEXT, `countryCode` TEXT, `driverNumber` INTEGER, `firstName` TEXT, `fullName` TEXT, `lastName` TEXT, `meetingKey` INTEGER, `nameAcronym` TEXT, `sessionKey` INTEGER, `teamColour` TEXT, `teamName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "broadcastName",
+            "columnName": "broadcastName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "countryCode",
+            "columnName": "countryCode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "driverNumber",
+            "columnName": "driverNumber",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meetingKey",
+            "columnName": "meetingKey",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "nameAcronym",
+            "columnName": "nameAcronym",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sessionKey",
+            "columnName": "sessionKey",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "teamColour",
+            "columnName": "teamColour",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "teamName",
+            "columnName": "teamName",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca01ec016155e8526c048163a7f9f390')"
+    ]
+  }
+}
