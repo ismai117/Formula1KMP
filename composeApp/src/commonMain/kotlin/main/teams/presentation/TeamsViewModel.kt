@@ -7,7 +7,6 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import main.drivers.domain.model.Driver
 import main.teams.domain.model.Team
 import main.teams.domain.repository.TeamsRepository
 
@@ -22,13 +21,21 @@ class TeamsViewModel(
     private val _team = MutableStateFlow<Team?>(null)
     val team = _team.asStateFlow()
 
+    private val _isTeamsLoading = MutableStateFlow(false)
+    val isTeamsLoading = _isTeamsLoading.asStateFlow()
+
+
     init {
         getDrivers()
     }
 
     private fun getDrivers() {
         viewModelScope.launch(Dispatchers.IO) {
-            _teams.value = teamsRepository.getTeams()
+            _isTeamsLoading.value = true
+            if (teamsRepository.getTeams().isNotEmpty()) {
+                _isTeamsLoading.value = false
+                _teams.value = teamsRepository.getTeams()
+            }
         }
     }
 

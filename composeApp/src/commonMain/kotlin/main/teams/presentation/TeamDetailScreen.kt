@@ -1,6 +1,5 @@
 package main.teams.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,11 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import f1AdditionalData.getProfile
-import f1AdditionalData.getTeamLogo
-import f1AdditionalData.getTeamName
-import f1AdditionalData.teamInformation
-import org.jetbrains.compose.resources.painterResource
+import coil3.compose.AsyncImage
 import org.koin.compose.koinInject
 
 
@@ -66,7 +61,7 @@ fun TeamDetailScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = getTeamName(teamName),
+                        text = team?.name.orEmpty(),
                         style = TextStyle(
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
@@ -87,16 +82,14 @@ fun TeamDetailScreen(
                     }
                 },
                 actions = {
-                    getTeamLogo(team?.name)?.let {
-                        Image(
-                            painter = painterResource(it),
-                            contentDescription = team?.name,
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier
-                                .padding(end = 16.dp)
-                                .size(33.dp)
-                        )
-                    }
+                    AsyncImage(
+                        model = team?.logoUrl,
+                        contentDescription = team?.name,
+                        contentScale = ContentScale.Fit,
+                        modifier = modifier
+                            .padding(end = 16.dp)
+                            .size(33.dp)
+                    )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,
@@ -130,14 +123,12 @@ fun TeamDetailScreen(
 //                        .border(width = 1.dp, color = Color.Black)
                     ) {
 
-                        getProfile(driver.number)?.let {
-                            Image(
-                                painter = painterResource(it),
-                                contentDescription = driver.name,
-                                contentScale = ContentScale.Fit,
-                                modifier = modifier.fillMaxSize()
-                            )
-                        }
+                        AsyncImage(
+                            model = driver.profileImageUrl,
+                            contentDescription = driver.fullName,
+                            contentScale = ContentScale.Fit,
+                            modifier = modifier.fillMaxSize()
+                        )
 
                     }
                     Box(
@@ -154,7 +145,7 @@ fun TeamDetailScreen(
                         ) {
 
                             Text(
-                                text = "${driver.number}",
+                                text = "${driver.driverNumber}",
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
@@ -162,7 +153,7 @@ fun TeamDetailScreen(
                             )
 
                             Text(
-                                text = driver.name.orEmpty(),
+                                text = driver.fullName,
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
@@ -204,7 +195,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = teamInformation(team?.name.orEmpty())?.name.orEmpty(),
+                            text = team?.fullName.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -228,7 +219,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = teamInformation(team?.name.orEmpty())?.base.orEmpty(),
+                            text = team?.base.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -252,7 +243,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = teamInformation(team?.name.orEmpty())?.teamChief.orEmpty(),
+                            text = team?.teamChief.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -276,7 +267,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = teamInformation(team?.name.orEmpty())?.technicalChief.orEmpty(),
+                            text = team?.technicalChief.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -300,7 +291,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = teamInformation(team?.name.orEmpty())?.chassis.orEmpty(),
+                            text = team?.chassis.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -324,7 +315,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = "${teamInformation(team?.name.orEmpty())?.firstTeamEntry}",
+                            text = "${team?.powerUnit}",
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -349,7 +340,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = "${teamInformation(team?.name.orEmpty())?.firstTeamEntry}",
+                            text = "${team?.firstTeamEntry}",
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -373,7 +364,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = "${teamInformation(team?.name.orEmpty())?.worldChampionships}",
+                            text = "${team?.worldChampionships}",
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -397,7 +388,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = teamInformation(team?.name.orEmpty())?.highestRaceFinish.orEmpty(),
+                            text = team?.highestRaceFinish.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -421,7 +412,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = "${teamInformation(team?.name.orEmpty())?.polePositions}",
+                            text = "${team?.polePositions}",
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -445,7 +436,7 @@ fun TeamDetailScreen(
                         )
 
                         Text(
-                            text = "${teamInformation(team?.name.orEmpty())?.fastestLaps}",
+                            text = "${team?.fastestLaps}",
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp

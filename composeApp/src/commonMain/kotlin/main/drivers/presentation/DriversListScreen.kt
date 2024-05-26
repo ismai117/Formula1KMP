@@ -1,22 +1,17 @@
 package main.drivers.presentation
 
-
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,15 +34,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil3.compose.AsyncImage
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
-import f1AdditionalData.getDriverNumberLogo
-import f1AdditionalData.getFlag
-import f1AdditionalData.getHeadshot
-import f1AdditionalData.getTeamName
 import main.drivers.domain.model.Driver
 import navigation.main.BottomNavigation
-import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 
 
@@ -187,15 +178,11 @@ fun DriverItem(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
 
-                    getDriverNumberLogo(driver.driverNumber)?.let {
-                        Image(
-                            painter = painterResource(it),
-                            contentDescription = driver.fullName,
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier
-//                                .border(width = 1.dp, color = Color.Black)
-                        )
-                    }
+                    AsyncImage(
+                        model = driver.driverNumberImage,
+                        contentDescription = driver.fullName,
+                        contentScale = ContentScale.Fit,
+                    )
 
                     Row(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -231,7 +218,7 @@ fun DriverItem(
                     }
 
                     Text(
-                        text = getTeamName(driver.teamName.orEmpty()),
+                        text = driver.teamName.orEmpty(),
                     )
 
                 }
@@ -252,16 +239,14 @@ fun DriverItem(
                     contentAlignment = Alignment.Center
                 ) {
 
-                    getFlag(driver.countryCode?.lowercase())?.let {
-                        Image(
-                            painter = painterResource(it),
-                            contentDescription = driver.fullName,
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier
-                                .padding(top = 16.dp)
-                                .size(40.dp)
-                        )
-                    }
+                    AsyncImage(
+                        model = driver.countryImageUrl,
+                        contentDescription = driver.fullName,
+                        contentScale = ContentScale.Fit,
+                        modifier = modifier
+                            .padding(top = 16.dp)
+                            .size(40.dp)
+                    )
 
                 }
 
@@ -272,16 +257,14 @@ fun DriverItem(
                     contentAlignment = Alignment.Center
                 ) {
 
-                    getHeadshot(driver.driverNumber)?.let {
-                        Image(
-                            painter = painterResource(it),
-                            contentDescription = driver.fullName,
-                            contentScale = ContentScale.Fit,
-                            modifier = modifier
-                                .padding(end = 16.dp)
-                                .size(160.dp)
-                        )
-                    }
+                    AsyncImage(
+                        model = driver.headshotImageUrl,
+                        contentDescription = driver.fullName,
+                        contentScale = ContentScale.Fit,
+                        modifier = modifier
+                            .padding(end = 16.dp)
+                            .size(160.dp)
+                    )
 
                 }
 

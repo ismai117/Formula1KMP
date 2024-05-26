@@ -16,7 +16,11 @@ fun DriverDto.mapToDomainModel(): Driver {
         nameAcronym = this.nameAcronym,
         sessionKey = this.sessionKey,
         teamColour = this.teamColour,
-        teamName = this.teamName
+        teamName = this.teamName,
+        countryImageUrl = this.countryImageUrl,
+        driverNumberImage = this.driverNumberImage,
+        headshotImageUrl = this.headshotImageUrl,
+        profileImageUrl = this.profileImageUrl
     )
 }
 

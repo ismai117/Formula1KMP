@@ -24,7 +24,6 @@ class DriversViewModel(
     private val _isDriversLoading = MutableStateFlow(false)
     val isDriversLoading = _isDriversLoading.asStateFlow()
 
-
     init {
         getDrivers()
     }

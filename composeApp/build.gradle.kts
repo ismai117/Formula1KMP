@@ -55,6 +55,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.napier)
+            implementation(libs.bundles.coil.common)
             implementation("com.github.ajalt.colormath:colormath:3.5.0")
             implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.5.0")
         }

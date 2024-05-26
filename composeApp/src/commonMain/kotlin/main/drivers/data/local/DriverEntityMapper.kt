@@ -1,5 +1,6 @@
 package main.drivers.data.local
 
+import main.drivers.data.remote.mapToDomainModel
 import main.drivers.domain.model.Driver
 
 
@@ -16,7 +17,11 @@ fun DriverEntity.mapToDomainModel(): Driver {
         nameAcronym = this.nameAcronym,
         sessionKey = this.sessionKey,
         teamColour = this.teamColour,
-        teamName = this.teamName
+        teamName = this.teamName,
+        countryImageUrl = this.countryImageUrl,
+        driverNumberImage = this.driverNumberImage,
+        headshotImageUrl = this.headshotImageUrl,
+        profileImageUrl = this.profileImageUrl
     )
 }
 
@@ -33,7 +38,11 @@ fun Driver.mapFromDomainModel(): DriverEntity {
         nameAcronym = this.nameAcronym,
         sessionKey = this.sessionKey,
         teamColour = this.teamColour,
-        teamName = this.teamName
+        teamName = this.teamName,
+        countryImageUrl = this.countryImageUrl,
+        driverNumberImage = this.driverNumberImage,
+        headshotImageUrl = this.headshotImageUrl,
+        profileImageUrl = this.profileImageUrl
     )
 }
 

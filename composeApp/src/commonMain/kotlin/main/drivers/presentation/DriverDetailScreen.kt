@@ -1,6 +1,5 @@
 package main.drivers.presentation
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,13 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import f1AdditionalData.countryName
+import coil3.compose.AsyncImage
 import f1AdditionalData.getBiography
-import f1AdditionalData.getFlag
-import f1AdditionalData.getProfile
-import f1AdditionalData.getTeamName
-import navigation.main.BottomNavigation
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
@@ -110,14 +104,12 @@ fun DriverDetailScreen(
                     .parallaxLayoutModifier(scrollState, 2)
             ) {
 
-                getProfile(driver?.driverNumber)?.let {
-                    Image(
-                        painter = painterResource(it),
-                        contentDescription = driver?.fullName,
-                        contentScale = ContentScale.Fit,
-                        modifier = modifier.fillMaxSize()
-                    )
-                }
+                AsyncImage(
+                    model = driver?.profileImageUrl,
+                    contentDescription = driver?.fullName,
+                    contentScale = ContentScale.Fit,
+                    modifier = modifier.fillMaxSize()
+                )
 
             }
 
@@ -154,16 +146,14 @@ fun DriverDetailScreen(
                             modifier = modifier.padding(8.dp)
                         )
 
-                        getFlag(driver?.countryCode?.lowercase())?.let {
-                            Image(
-                                painter = painterResource(it),
-                                contentDescription = driver?.fullName,
-                                contentScale = ContentScale.Fit,
-                                modifier = modifier
-                                    .size(40.dp)
-//                            .border(width = 1.dp , color = Color.Black)
-                            )
-                        }
+                        AsyncImage(
+                            model = driver?.countryImageUrl,
+                            contentDescription = driver?.fullName,
+                            contentScale = ContentScale.Fit,
+                            modifier = modifier
+                                .size(40.dp)
+                        )
+
                     }
 
                     Text(
@@ -201,7 +191,7 @@ fun DriverDetailScreen(
                         )
 
                         Text(
-                            text = getTeamName(driver?.teamName.orEmpty()),
+                            text = driver?.teamName.orEmpty(),
                             textAlign = TextAlign.Center,
                             style = TextStyle(
                                 fontSize = 16.sp
@@ -279,3 +269,20 @@ fun Modifier.parallaxLayoutModifier(scrollState: ScrollState, rate: Int) =
     }
 
 
+val countryName = mapOf(
+    "usa" to "United States of America",
+    "tha" to "Thailand",
+    "ned" to "Netherlands",
+    "mon" to "Monaco",
+    "mex" to "Mexico",
+    "jpn" to "Japan",
+    "ger" to "Germany",
+    "gbr" to "United Kingdom",
+    "fra" to "France",
+    "fin" to "Finland",
+    "esp" to "Spain",
+    "den" to "Denmark",
+    "chn" to "China",
+    "can" to "Canada",
+    "aus" to "Australia"
+)

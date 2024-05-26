@@ -1,14 +1,20 @@
-package main.teams.domain.model
+package main.teams.data.local
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-data class Team(
+@Entity(tableName = "teams_table")
+data class TeamEntity(
+    @PrimaryKey(autoGenerate = true)
     val id: Int?,
     val name: String,
     val fullName: String,
     val logoUrl: String,
     val carImageUrl: String,
     val teamColour: String,
-    val drivers: List<TeamDriver>,
+    val drivers: List<TeamDriverEntity>,
     val base: String,
     val chassis: String,
     val fastestLaps: Int,
@@ -21,7 +27,8 @@ data class Team(
     val worldChampionships: Int
 )
 
-data class TeamDriver(
+@Serializable
+data class TeamDriverEntity(
     val driverNumber: Int,
     val fullName: String,
     val profileImageUrl: String

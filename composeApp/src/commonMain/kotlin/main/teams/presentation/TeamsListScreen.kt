@@ -1,15 +1,12 @@
 package main.teams.presentation
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,14 +35,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil3.compose.AsyncImage
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
-import f1AdditionalData.getTeamCar
-import f1AdditionalData.getTeamLogo
-import f1AdditionalData.getTeamName
 import main.teams.domain.model.Team
 import navigation.main.BottomNavigation
-import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 
 
@@ -152,7 +146,7 @@ fun TeamItem(
             .fillMaxWidth()
             .height(240.dp)
             .clickable {
-                onClick(team.name.orEmpty())
+                onClick(team.name)
             },
         colors = CardDefaults.outlinedCardColors(
             containerColor = Color.Transparent
@@ -197,7 +191,7 @@ fun TeamItem(
                                     .height(45.dp)
                                     .clip(RoundedCornerShape(16.dp)),
                                 thickness = 4.dp,
-                                color = com.github.ajalt.colormath.Color.parse("#${team.color}")
+                                color = com.github.ajalt.colormath.Color.parse("#${team.teamColour}")
                                     .toComposeColor()
                             )
 
@@ -205,7 +199,7 @@ fun TeamItem(
                                 verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 Text(
-                                    text = getTeamName(team.name.orEmpty()),
+                                    text = team.name,
                                     style = TextStyle(
                                         fontSize = 16.sp,
                                         fontWeight = FontWeight.Bold
@@ -231,14 +225,12 @@ fun TeamItem(
 //                                .border(width = 1.dp, color = Color.Black),
                             contentAlignment = Alignment.Center
                         ) {
-                            getTeamLogo(team.name)?.let {
-                                Image(
-                                    painter = painterResource(it),
-                                    contentDescription = team.name,
-                                    contentScale = ContentScale.Fit,
-                                    modifier = modifier.fillMaxSize()
-                                )
-                            }
+                            AsyncImage(
+                                model = team.logoUrl,
+                                contentDescription = team.name,
+                                contentScale = ContentScale.Fit,
+                                modifier = modifier.fillMaxSize()
+                            )
                         }
 
                     }
@@ -268,7 +260,7 @@ fun TeamItem(
 
                             if (team.drivers.size > 2) {
                                 Text(
-                                    text = "${driver.name}",
+                                    text = driver.fullName,
                                     style = TextStyle(
                                         fontSize = 12.sp
                                     ),
@@ -278,7 +270,7 @@ fun TeamItem(
                                 )
                             } else {
                                 Text(
-                                    text = "${driver.name}",
+                                    text = driver.fullName,
                                     style = TextStyle(
                                         fontSize = 14.sp
                                     ),
@@ -316,18 +308,14 @@ fun TeamItem(
 //                    .border(width = 1.dp, color = Color.Black),
                 contentAlignment = Alignment.Center
             ) {
-
-                getTeamCar(team.name)?.let {
-                    Image(
-                        painter = painterResource(it),
-                        contentDescription = team.name,
-                        contentScale = ContentScale.Fit,
-                        modifier = modifier
-                            .padding(16.dp)
-                            .fillMaxSize()
-                    )
-                }
-
+                AsyncImage(
+                    model = team.carImageUrl,
+                    contentDescription = team.name,
+                    contentScale = ContentScale.Fit,
+                    modifier = modifier
+                        .padding(16.dp)
+                        .fillMaxSize()
+                )
             }
 
         }
