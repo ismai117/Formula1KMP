@@ -12,7 +12,7 @@ Provides information on Formula 1 2024 teams and drivers
 - 🏗 ViewModel - [Androidx](https://touchlab.co/kmp-viewmodel)
 - 🌎 Network - [Ktor](https://github.com/ktorio/ktor)
 - 📦 Storage - [Room](https://developer.android.com/kotlin/multiplatform/room)
-- 🔑 Preferences - [Datastore]("https://developer.android.com/kotlin/multiplatform/datastore")
+- 🔑 Preferences - [Room](https://developer.android.com/kotlin/multiplatform/room)
 - 💉 Dependecy Injection - [Koin](https://github.com/InsertKoinIO/koin)
 - 🛢 Image Loading - [Coil](https://github.com/coil-kt/coil)
 - 📋 Logging - [Napier](https://github.com/AAkira/Napier)
