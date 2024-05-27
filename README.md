@@ -21,6 +21,7 @@ Provides information on Formula 1 2024 teams and drivers
 <h2 align="center">Android</h2>
 </pre>
 <p align="center">
+  <img src="readme-images/android/splash.png" height=600>
   <img src="readme-images/android/starter.png" height=600>
   <img src="readme-images/android/drivers-list.png" height=600>
   <img src="readme-images/android/driver-detail.png" height=600>
@@ -31,7 +32,8 @@ Provides information on Formula 1 2024 teams and drivers
 <h2 align="center">IOS</h2>
 </pre>
 <p align="center">
-   <img src="readme-images/ios/starter.png" height=600>
+  <img src="readme-images/ios/splash.png" height=600>
+  <img src="readme-images/ios/starter.png" height=600>
   <img src="readme-images/ios/drivers-list.png" height=600>
   <img src="readme-images/ios/driver-detail.png" height=600>
   <img src="readme-images/ios/teams-list.png" height=600>
