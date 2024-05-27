@@ -10,8 +10,9 @@ Provides information on Formula 1 2024 teams and drivers
 - 🍎 Shared UI - [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform)
 - 🚏 Navigation - [Androidx](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html#sample-project)
 - 🏗 ViewModel - [Androidx](https://touchlab.co/kmp-viewmodel)
-- 🌎 Network - [Ktor](https://github.com/ktorio/ktor)
+- 🌎 Network - [Ktor - Client & Server](https://github.com/ktorio/ktor)
 - 📦 Storage - [Room](https://developer.android.com/kotlin/multiplatform/room)
+- 🔑 Preferences - [Datastore]("https://developer.android.com/kotlin/multiplatform/datastore")
 - 💉 Dependecy Injection - [Koin](https://github.com/InsertKoinIO/koin)
 - 📋 Logging - [Napier](https://github.com/AAkira/Napier)
 
