@@ -21,5 +21,6 @@ data class DriverEntity(
     val countryImageUrl: String,
     val driverNumberImage: String,
     val headshotImageUrl: String,
-    val profileImageUrl: String
+    val profileImageUrl: String,
+    val biography: String
 )

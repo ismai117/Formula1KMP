@@ -9,32 +9,42 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import main.teams.domain.model.Team
 import main.teams.domain.repository.TeamsRepository
+import utils.Result
 
 
 class TeamsViewModel(
     private val teamsRepository: TeamsRepository
 ) : ViewModel(){
 
-    private val _teams = MutableStateFlow<List<Team>>(emptyList())
-    val teams = _teams.asStateFlow()
-
     private val _team = MutableStateFlow<Team?>(null)
     val team = _team.asStateFlow()
 
-    private val _isTeamsLoading = MutableStateFlow(false)
-    val isTeamsLoading = _isTeamsLoading.asStateFlow()
+    private val _state = MutableStateFlow(TeamsState())
+    val state = _state.asStateFlow()
 
-
-    init {
-        getDrivers()
-    }
-
-    private fun getDrivers() {
+    fun getTeams() {
         viewModelScope.launch(Dispatchers.IO) {
-            _isTeamsLoading.value = true
-            if (teamsRepository.getTeams().isNotEmpty()) {
-                _isTeamsLoading.value = false
-                _teams.value = teamsRepository.getTeams()
+            teamsRepository.getTeams().collect { result ->
+                when(result){
+                    is Result.Loading -> {
+                        _state.value = TeamsState(
+                            loading = true
+                        )
+                    }
+                    is Result.Success -> {
+                        _state.value = TeamsState(
+                            loading = false,
+                            success = true,
+                            teams = result.data
+                        )
+                    }
+                    is Result.Error -> {
+                        _state.value = TeamsState(
+                            loading = false,
+                            error = result.message
+                        )
+                    }
+                }
             }
         }
     }

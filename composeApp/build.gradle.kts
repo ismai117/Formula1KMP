@@ -51,6 +51,7 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
+            implementation(libs.androidx.datastore.preferences.core)
             implementation(libs.bundles.ktor.common)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)

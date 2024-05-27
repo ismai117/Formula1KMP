@@ -14,7 +14,7 @@ import main.teams.data.local.TeamsDao
         DriverEntity::class,
         TeamEntity::class
     ],
-    version = 5
+    version = 6
 )
 @TypeConverters(
     TeamDriverEntityConverter::class

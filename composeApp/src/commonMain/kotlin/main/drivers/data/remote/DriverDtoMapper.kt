@@ -20,7 +20,8 @@ fun DriverDto.mapToDomainModel(): Driver {
         countryImageUrl = this.countryImageUrl,
         driverNumberImage = this.driverNumberImage,
         headshotImageUrl = this.headshotImageUrl,
-        profileImageUrl = this.profileImageUrl
+        profileImageUrl = this.profileImageUrl,
+        biography = this.biography
     )
 }
 

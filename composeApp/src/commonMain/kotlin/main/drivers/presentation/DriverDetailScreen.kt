@@ -39,8 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import f1AdditionalData.getBiography
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 
@@ -238,14 +236,12 @@ fun DriverDetailScreen(
                             )
                         )
 
-                        getBiography(driver?.driverNumber)?.let {
-                            Text(
-                                text = stringResource(it),
-                                style = TextStyle(
-                                    fontSize = 16.sp
-                                )
+                        Text(
+                            text = driver?.biography.orEmpty(),
+                            style = TextStyle(
+                                fontSize = 16.sp
                             )
-                        }
+                        )
 
                     }
 

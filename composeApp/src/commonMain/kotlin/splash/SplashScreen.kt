@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -14,17 +16,27 @@ import formula1kmp.composeapp.generated.resources.Res
 import formula1kmp.composeapp.generated.resources.logo
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.koinInject
+import starter.presentation.StarterViewModel
 
 
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    navigateToMainScreen: () -> Unit
+    navigateToMainScreen: () -> Unit,
+    navigateToStarterScreen: () -> Unit
 ) {
+
+    val starterViewModel = koinInject<StarterViewModel>()
+    val state by starterViewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
         delay(1500)
-        navigateToMainScreen()
+        if (state.isStarted){
+            navigateToMainScreen()
+        } else {
+            navigateToStarterScreen()
+        }
     }
 
     Box(

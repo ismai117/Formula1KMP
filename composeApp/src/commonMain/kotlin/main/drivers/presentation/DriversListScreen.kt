@@ -17,11 +17,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,9 +52,11 @@ fun DriversListScreen(
 ) {
 
     val driversViewModel = koinInject<DriversViewModel>()
-    val drivers by driversViewModel.drivers.collectAsState()
+    val state by driversViewModel.state.collectAsState()
 
-    val isDriversLoading by driversViewModel.isDriversLoading.collectAsState()
+    LaunchedEffect(Unit){
+        driversViewModel.getDrivers()
+    }
 
     Scaffold(
         bottomBar = {
@@ -60,78 +64,68 @@ fun DriversListScreen(
                 navController = navController
             )
         },
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.background,
         contentColor = Color.Black
     ) { paddingValues ->
 
-        Box(
+        Column(
             modifier = modifier
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
 
-            Column {
+            Box(
+                modifier = modifier
+                    .padding(top = 40.dp)
+                    .fillMaxWidth()
+            ){
 
-                Box(
+                Text(
+                    text = "Drivers",
+                    style = TextStyle(
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
                     modifier = modifier
-                        .padding(top = 40.dp)
-                        .fillMaxWidth()
-                ){
+                        .padding(start = 24.dp)
+                        .align(Alignment.CenterStart)
+                )
 
-                    Text(
-                        text = "Drivers",
-                        style = TextStyle(
-                            fontSize = 40.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = modifier
-                            .padding(start = 24.dp)
-                            .align(Alignment.CenterStart)
-                    )
-
-                    Text(
-                        text = "2024",
-                        style = TextStyle(
-                            color = Color(0xffe80404),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = modifier
-                            .padding(end = 24.dp)
-                            .align(Alignment.CenterEnd)
-                    )
-
-                }
-
-                LazyColumn(
+                Text(
+                    text = "2024",
+                    style = TextStyle(
+                        color = Color(0xffe80404),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
                     modifier = modifier
-                        .padding(top = 12.dp),
-                    contentPadding = PaddingValues(24.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-
-                    items(
-                        items = drivers,
-                        key = { driver -> driver.driverNumber.hashCode() }
-                    ) { item ->
-
-                        DriverItem(
-                            driver = item,
-                            onClick = { driverNumber ->
-                                navigateToDriverDetailScreen(driverNumber)
-                            }
-                        )
-
-                    }
-
-                }
+                        .padding(end = 24.dp)
+                        .align(Alignment.CenterEnd)
+                )
 
             }
 
-            if (isDriversLoading) {
-                CircularProgressIndicator(
-                    modifier = modifier.align(Alignment.Center)
-                )
+            LazyColumn(
+                modifier = modifier
+                    .padding(top = 12.dp),
+                contentPadding = PaddingValues(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+
+                items(
+                    items = state.drivers,
+                    key = { driver -> driver.driverNumber.hashCode() }
+                ) { item ->
+
+                    DriverItem(
+                        driver = item,
+                        onClick = { driverNumber ->
+                            navigateToDriverDetailScreen(driverNumber)
+                        }
+                    )
+
+                }
+
             }
 
         }

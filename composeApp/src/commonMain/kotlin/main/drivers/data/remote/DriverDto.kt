@@ -35,5 +35,7 @@ data class DriverDto(
     @SerialName("teamColour")
     val teamColour: String,
     @SerialName("teamName")
-    val teamName: String
+    val teamName: String,
+    @SerialName("biography")
+    val biography: String
 )

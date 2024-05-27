@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -51,7 +52,11 @@ fun TeamsListScreen(
 ) {
 
     val teamsViewModel = koinInject<TeamsViewModel>()
-    val teams by teamsViewModel.teams.collectAsState()
+    val state by teamsViewModel.state.collectAsState()
+
+    LaunchedEffect(Unit){
+       teamsViewModel.getTeams()
+    }
 
     Scaffold(
         bottomBar = {
@@ -63,70 +68,65 @@ fun TeamsListScreen(
         contentColor = Color.Black
     ) { paddingValues ->
 
-        Box(
+        Column(
             modifier = modifier
                 .padding(paddingValues)
                 .fillMaxSize()
         ) {
 
-            Column {
+            Box(
+                modifier = modifier
+                    .padding(top = 40.dp)
+                    .fillMaxWidth()
+            ) {
 
-                Box(
+                Text(
+                    text = "Teams",
+                    style = TextStyle(
+                        color = Color(0xffe80404),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
                     modifier = modifier
-                        .padding(top = 40.dp)
-                        .fillMaxWidth()
-                ) {
+                        .padding(start = 24.dp)
+                        .align(Alignment.CenterStart)
+                )
 
-                    Text(
-                        text = "Teams",
-                        style = TextStyle(
-                            color = Color(0xffe80404),
-                            fontSize = 40.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = modifier
-                            .padding(start = 24.dp)
-                            .align(Alignment.CenterStart)
-                    )
-
-                    Text(
-                        text = "2024",
-                        style = TextStyle(
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = modifier
-                            .padding(end = 24.dp)
-                            .align(Alignment.CenterEnd)
-                    )
-
-                }
-
-                LazyColumn(
+                Text(
+                    text = "2024",
+                    style = TextStyle(
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    ),
                     modifier = modifier
-                        .padding(top = 12.dp),
-                    contentPadding = PaddingValues(24.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
+                        .padding(end = 24.dp)
+                        .align(Alignment.CenterEnd)
+                )
 
-                    items(
-                        items = teams,
-                        key = { team -> team.name.hashCode() }
-                    ) { item ->
+            }
 
-                        TeamItem(
-                            team = item,
-                            onClick = {
-                                navigateToTeamDetailScreen(it)
-                            }
-                        )
+            LazyColumn(
+                modifier = modifier
+                    .padding(top = 12.dp),
+                contentPadding = PaddingValues(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
 
-                    }
+                items(
+                    items = state.teams,
+                    key = { team -> team.name.hashCode() }
+                ) { item ->
+
+                    TeamItem(
+                        team = item,
+                        onClick = {
+                            navigateToTeamDetailScreen(it)
+                        }
+                    )
 
                 }
 
             }
-
 
         }
 

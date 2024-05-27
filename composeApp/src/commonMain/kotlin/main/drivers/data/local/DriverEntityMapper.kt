@@ -21,7 +21,8 @@ fun DriverEntity.mapToDomainModel(): Driver {
         countryImageUrl = this.countryImageUrl,
         driverNumberImage = this.driverNumberImage,
         headshotImageUrl = this.headshotImageUrl,
-        profileImageUrl = this.profileImageUrl
+        profileImageUrl = this.profileImageUrl,
+        biography = this.biography
     )
 }
 
@@ -42,7 +43,8 @@ fun Driver.mapFromDomainModel(): DriverEntity {
         countryImageUrl = this.countryImageUrl,
         driverNumberImage = this.driverNumberImage,
         headshotImageUrl = this.headshotImageUrl,
-        profileImageUrl = this.profileImageUrl
+        profileImageUrl = this.profileImageUrl,
+        biography = this.biography
     )
 }
 

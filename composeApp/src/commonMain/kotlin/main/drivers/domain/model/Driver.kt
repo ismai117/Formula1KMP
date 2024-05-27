@@ -16,5 +16,6 @@ data class Driver(
     val headshotImageUrl: String,
     val profileImageUrl: String,
     val driverNumberImage: String,
-    val countryImageUrl: String
+    val countryImageUrl: String,
+    val biography: String
 )

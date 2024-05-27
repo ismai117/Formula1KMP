@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import main.MainScreen
 import splash.SplashScreen
+import starter.presentation.StarterScreen
 
 @Composable
 fun RootNavigation(
@@ -20,6 +21,18 @@ fun RootNavigation(
             route = SPLASH_SCREEN_ROUTE
         ){
             SplashScreen(
+                navigateToMainScreen = {
+                    navController.navigate(MAIN_SCREEN_ROUTE)
+                },
+                navigateToStarterScreen = {
+                    navController.navigate(STARTER_SCREEN_ROUTE)
+                }
+            )
+        }
+        composable(
+            route = STARTER_SCREEN_ROUTE
+        ){
+            StarterScreen(
                 navigateToMainScreen = {
                     navController.navigate(MAIN_SCREEN_ROUTE)
                 }
