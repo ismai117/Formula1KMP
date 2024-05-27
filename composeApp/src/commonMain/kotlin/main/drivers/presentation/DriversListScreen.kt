@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
@@ -43,10 +42,8 @@ import main.drivers.domain.model.Driver
 import navigation.main.BottomNavigation
 import org.koin.compose.koinInject
 
-
 @Composable
 fun DriversListScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     navigateToDriverDetailScreen: (Int) -> Unit
 ) {
@@ -57,6 +54,22 @@ fun DriversListScreen(
     LaunchedEffect(Unit){
         driversViewModel.getDrivers()
     }
+
+    DriversListScreenContent(
+        navController = navController,
+        state = state,
+        navigateToDriverDetailScreen = navigateToDriverDetailScreen
+    )
+
+}
+
+@Composable
+fun DriversListScreenContent(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    state: DriversState,
+    navigateToDriverDetailScreen: (Int) -> Unit
+) {
 
     Scaffold(
         bottomBar = {
@@ -147,7 +160,7 @@ fun DriverItem(
             .fillMaxWidth()
             .height(240.dp)
             .clickable {
-                driver.driverNumber?.let { driverNumber -> onClick(driverNumber) }
+                onClick(driver.driverNumber)
             },
         colors = CardDefaults.outlinedCardColors(
             containerColor = Color.Transparent
@@ -195,14 +208,14 @@ fun DriverItem(
                             verticalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Text(
-                                text = "${driver.firstName}",
+                                text = driver.firstName,
                                 style = TextStyle(
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 )
                             )
                             Text(
-                                text = "${driver.lastName}",
+                                text = driver.lastName,
                                 style = TextStyle(
                                     fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold
@@ -212,7 +225,7 @@ fun DriverItem(
                     }
 
                     Text(
-                        text = driver.teamName.orEmpty(),
+                        text = driver.teamName,
                     )
 
                 }

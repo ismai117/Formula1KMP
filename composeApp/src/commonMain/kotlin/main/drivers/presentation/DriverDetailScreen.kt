@@ -39,18 +39,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import main.drivers.domain.model.Driver
 import org.koin.compose.koinInject
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DriverDetailScreen(
-    modifier: Modifier = Modifier,
     driverNumber: Int,
     navigateBack: () -> Unit
 ) {
-
-    val scrollState = rememberScrollState()
 
     val driversViewModel = koinInject<DriversViewModel>()
     val driver by driversViewModel.driver.collectAsState()
@@ -58,6 +54,25 @@ fun DriverDetailScreen(
     LaunchedEffect(Unit) {
         driversViewModel.getDriverByDriverNumber(driverNumber)
     }
+
+    DriverDetailScreenContent(
+        driver = driver,
+        driverNumber = driverNumber,
+        navigateBack = navigateBack
+    )
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DriverDetailScreenContent(
+    modifier: Modifier = Modifier,
+    driver: Driver?,
+    driverNumber: Int,
+    navigateBack: () -> Unit
+) {
+
+    val scrollState = rememberScrollState()
 
     Scaffold(
         topBar = {

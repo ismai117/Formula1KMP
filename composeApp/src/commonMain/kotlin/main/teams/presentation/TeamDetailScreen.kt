@@ -38,13 +38,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import main.teams.domain.model.Team
 import org.koin.compose.koinInject
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TeamDetailScreen(
-    modifier: Modifier = Modifier,
     teamName: String,
     navigateBack: () -> Unit
 ) {
@@ -55,6 +53,21 @@ fun TeamDetailScreen(
     LaunchedEffect(Unit) {
         teamsViewModel.getTeamByTeamName(teamName)
     }
+
+    TeamDetailScreenContent(
+        team = team,
+        navigateBack = navigateBack
+    )
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TeamDetailScreenContent(
+    modifier: Modifier = Modifier,
+    team: Team?,
+    navigateBack: () -> Unit
+) {
 
     Scaffold(
         topBar = {

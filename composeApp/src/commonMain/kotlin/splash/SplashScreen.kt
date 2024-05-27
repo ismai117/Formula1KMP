@@ -19,10 +19,8 @@ import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import starter.presentation.StarterViewModel
 
-
 @Composable
 fun SplashScreen(
-    modifier: Modifier = Modifier,
     navigateToMainScreen: () -> Unit,
     navigateToStarterScreen: () -> Unit
 ) {
@@ -38,6 +36,15 @@ fun SplashScreen(
             navigateToStarterScreen()
         }
     }
+
+    SplashScreenContent()
+
+}
+
+@Composable
+fun SplashScreenContent(
+    modifier: Modifier = Modifier
+) {
 
     Box(
         modifier = modifier

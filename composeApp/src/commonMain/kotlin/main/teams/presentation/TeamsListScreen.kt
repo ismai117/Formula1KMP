@@ -46,7 +46,6 @@ import org.koin.compose.koinInject
 
 @Composable
 fun TeamsListScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     navigateToTeamDetailScreen: (String) -> Unit
 ) {
@@ -54,9 +53,25 @@ fun TeamsListScreen(
     val teamsViewModel = koinInject<TeamsViewModel>()
     val state by teamsViewModel.state.collectAsState()
 
-    LaunchedEffect(Unit){
-       teamsViewModel.getTeams()
+    LaunchedEffect(Unit) {
+        teamsViewModel.getTeams()
     }
+
+    TeamsListScreenContent(
+        navController = navController,
+        state = state,
+        navigateToTeamDetailScreen = navigateToTeamDetailScreen
+    )
+
+}
+
+@Composable
+fun TeamsListScreenContent(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    state: TeamsState,
+    navigateToTeamDetailScreen: (String) -> Unit
+) {
 
     Scaffold(
         bottomBar = {
