@@ -14,7 +14,7 @@ Provides information on Formula 1 2024 teams and drivers
 - 📦 Storage - [Room](https://developer.android.com/kotlin/multiplatform/room)
 - 🔑 Preferences - [Datastore]("https://developer.android.com/kotlin/multiplatform/datastore")
 - 💉 Dependecy Injection - [Koin](https://github.com/InsertKoinIO/koin)
-- 🛢 Image Loading - [Coil]
+- 🛢 Image Loading - [Coil](https://github.com/coil-kt/coil)
 - 📋 Logging - [Napier](https://github.com/AAkira/Napier)
 
 ##
