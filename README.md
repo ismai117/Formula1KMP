@@ -21,7 +21,7 @@ Provides information on Formula 1 2024 teams and drivers
 - 🛢 Image Loading - [Coil](https://github.com/coil-kt/coil)
 - 📋 Logging - [Napier](https://github.com/AAkira/Napier)
 
-- F1 Api https://github.com/ismai117/f1api
+F1 Api https://github.com/ismai117/f1api
 
 ##
 
