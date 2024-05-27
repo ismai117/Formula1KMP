@@ -17,6 +17,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import main.teams.domain.model.Team
+import utils.Constants.BASE_URL
 
 class TeamsRemoteService() {
 
@@ -39,7 +40,7 @@ class TeamsRemoteService() {
 
     suspend fun getTeams(): List<Team> {
         val response = client.get {
-            url("http://192.168.1.72:8080/teams")
+            url("$BASE_URL/teams")
         }.body<List<TeamDto>>()
         return response.mapToDomainModelList()
     }

@@ -13,6 +13,7 @@ import io.ktor.client.request.url
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import main.drivers.domain.model.Driver
+import utils.Constants.BASE_URL
 
 
 class DriversRemoteService() {
@@ -36,7 +37,7 @@ class DriversRemoteService() {
 
     suspend fun getDrivers(): List<Driver> {
         val response = client.get {
-            url("http://192.168.1.72:8080/drivers")
+            url("$BASE_URL/drivers")
         }.body<List<DriverDto>>()
         return response.mapToDomainModelList()
     }
