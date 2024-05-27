@@ -2,6 +2,10 @@
 
 Provides information on Formula 1 2024 teams and drivers
 
+<p align="center">
+  <img src="readme-images/banner/f1.png" height=200>
+</p>
+
 ## Supported Platforms
 - Android
 - IOS
