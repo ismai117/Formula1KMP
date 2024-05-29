@@ -10,6 +10,7 @@ plugins {
 }
 
 kotlin {
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -17,6 +18,8 @@ kotlin {
             }
         }
     }
+
+    jvm("desktop")
     
     listOf(
         iosX64(),
@@ -30,6 +33,8 @@ kotlin {
     }
     
     sourceSets {
+
+        val desktopMain by getting
         
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
@@ -60,8 +65,16 @@ kotlin {
             implementation("com.github.ajalt.colormath:colormath:3.5.0")
             implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.5.0")
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+        }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
+            implementation(libs.ktor.client.java)
         }
     }
 }
@@ -99,6 +112,19 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
+
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            packageName = "org.ncgroup.formula1kmp"
+            packageVersion = "1.0.0"
+        }
+    }
+}
+
 
 dependencies {
     ksp(libs.androidx.room.compiler)

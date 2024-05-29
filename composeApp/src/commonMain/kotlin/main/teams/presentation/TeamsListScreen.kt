@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
@@ -39,6 +42,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
+import getPlatform
 import main.teams.domain.model.Team
 import navigation.main.BottomNavigation
 import org.koin.compose.koinInject
@@ -120,11 +124,13 @@ fun TeamsListScreenContent(
 
             }
 
-            LazyColumn(
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(324.dp),
                 modifier = modifier
                     .padding(top = 12.dp),
                 contentPadding = PaddingValues(24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
 
                 items(
@@ -159,7 +165,7 @@ fun TeamItem(
     OutlinedCard(
         modifier = modifier
             .fillMaxWidth()
-            .height(240.dp)
+            .height(if (getPlatform().name == "desktop") 252.dp else 240.dp)
             .clickable {
                 onClick(team.name)
             },

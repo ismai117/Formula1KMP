@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import formula1kmp.composeapp.generated.resources.Res
 import formula1kmp.composeapp.generated.resources.bg
 import formula1kmp.composeapp.generated.resources.logo
+import getPlatform
 import main.drivers.presentation.DriversState
 import main.drivers.presentation.DriversViewModel
 import main.teams.presentation.TeamsState
@@ -45,7 +48,7 @@ import org.koin.compose.koinInject
 @Composable
 fun StarterScreen(
     navigateToMainScreen: () -> Unit
-){
+) {
 
     val starterViewModel = koinInject<StarterViewModel>()
 
@@ -70,24 +73,23 @@ fun StarterScreen(
 
 @Composable
 fun StarterScreenContent(
-    modifier: Modifier = Modifier,
     driversState: DriversState,
     teamsState: TeamsState,
     onEvent: (StarterOnEvent) -> Unit,
     navigateToMainScreen: () -> Unit,
     getStarted: () -> Unit
-){
+) {
 
     val hostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(driversState.success, teamsState.success){
+    LaunchedEffect(driversState.success, teamsState.success) {
         if (driversState.success && teamsState.success) {
             onEvent(StarterOnEvent.STARTED)
             navigateToMainScreen()
         }
     }
 
-    LaunchedEffect(driversState.error, teamsState.error){
+    LaunchedEffect(driversState.error, teamsState.error) {
         if (driversState.error.isNotBlank() || teamsState.error.isNotBlank()) {
             hostState.showSnackbar(driversState.error)
         }
@@ -97,7 +99,7 @@ fun StarterScreenContent(
         snackbarHost = {
             SnackbarHost(
                 hostState = hostState
-            ){ data ->
+            ) { data ->
                 Snackbar(
                     snackbarData = data
                 )
@@ -105,9 +107,150 @@ fun StarterScreenContent(
         }
     ) {
 
+
+        if (getPlatform().name != "desktop") {
+
+            Mobile(
+                driversState = driversState,
+                teamsState = teamsState,
+                getStarted = getStarted
+            )
+
+        } else {
+
+           NonMobile(
+               driversState = driversState,
+               teamsState = teamsState,
+               getStarted = getStarted
+           )
+
+        }
+
+    }
+
+}
+
+@Composable
+private fun Mobile(
+    modifier: Modifier = Modifier,
+    driversState: DriversState,
+    teamsState: TeamsState,
+    getStarted: () -> Unit
+){
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+
+        Image(
+            painter = painterResource(Res.drawable.bg),
+            contentDescription = "",
+            modifier = modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+
+        Column(
+            modifier = modifier
+                .padding(top = 100.dp)
+                .align(Alignment.TopCenter),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp)
+        ) {
+            Image(
+                painter = painterResource(Res.drawable.logo),
+                contentDescription = null,
+                modifier = modifier
+                    .width(160.dp)
+                    .height(40.dp)
+            )
+            Text(
+                text = "2024",
+                style = TextStyle(
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.ExtraBold
+                )
+            )
+        }
+
+        if (driversState.loading && teamsState.loading) {
+            Box(
+                modifier = modifier
+                    .padding(start = 16.dp, end = 16.dp, bottom = 40.dp)
+                    .fillMaxWidth()
+                    .height(55.dp)
+                    .align(Alignment.BottomCenter)
+                    .background(Color(0xffe80404)),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Data Loading...",
+                    style = TextStyle(
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    ),
+                    modifier = modifier
+                        .padding(start = 16.dp)
+                        .align(Alignment.CenterStart)
+                )
+                CircularProgressIndicator(
+                    color = Color.White,
+                    modifier = modifier
+                        .padding(end = 16.dp)
+                        .size(24.dp)
+                        .align(Alignment.CenterEnd)
+                )
+            }
+        } else {
+            Box(
+                modifier = modifier
+                    .padding(start = 24.dp, end = 24.dp, bottom = 140.dp)
+                    .align(Alignment.BottomCenter),
+                contentAlignment = Alignment.Center
+            ) {
+                Button(
+                    onClick = {
+                        getStarted()
+                    },
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(55.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xffe80404)
+                    )
+                ) {
+                    Text(
+                        text = "Get Started",
+                        style = TextStyle(
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 18.sp
+                        )
+                    )
+                }
+            }
+        }
+
+    }
+}
+
+@Composable
+private fun NonMobile(
+    modifier: Modifier = Modifier,
+    driversState: DriversState,
+    teamsState: TeamsState,
+    getStarted: () -> Unit
+){
+    Row(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+
         Box(
             modifier = modifier
-                .fillMaxSize()
+                .weight(0.35f)
+                .fillMaxHeight()
         ){
 
             Image(
@@ -116,6 +259,14 @@ fun StarterScreenContent(
                 modifier = modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
+
+        }
+
+        Box(
+            modifier = modifier
+                .weight(0.65f)
+                .fillMaxHeight()
+        ){
 
             Column(
                 modifier = modifier
@@ -165,7 +316,7 @@ fun StarterScreenContent(
                     CircularProgressIndicator(
                         color = Color.White,
                         modifier = modifier
-                            .padding(end  = 16.dp)
+                            .padding(end = 16.dp)
                             .size(24.dp)
                             .align(Alignment.CenterEnd)
                     )
@@ -182,12 +333,12 @@ fun StarterScreenContent(
                             getStarted()
                         },
                         modifier = modifier
-                            .fillMaxWidth()
+                            .width(324.dp)
                             .height(55.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xffe80404)
                         )
-                    ){
+                    ) {
                         Text(
                             text = "Get Started",
                             style = TextStyle(
@@ -203,5 +354,4 @@ fun StarterScreenContent(
         }
 
     }
-
 }
