@@ -9,6 +9,7 @@ Provides information on Formula 1 2024 teams and drivers
 ## Supported Platforms
 - Android
 - IOS
+- Desktop
 
 ## Stack
 - 🍎 Shared UI - [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform)
@@ -45,4 +46,14 @@ Provides information on Formula 1 2024 teams and drivers
   <img src="readme-images/ios/teams-list.png" height=600>
   <img src="readme-images/ios/team-detail.png" height=600>
 </p>
-<pre> 
+<pre>  
+<h2 align="center">Desktop</h2>
+</pre>
+<p align="center">
+  <img src="readme-images/desktop/splash.png">
+  <img src="readme-images/desktop/starter.png">
+  <img src="readme-images/desktop/drivers-list.png">
+  <img src="readme-images/desktpo/driver-detail.png">
+  <img src="readme-images/desktop/teams-list.png">
+  <img src="readme-images/desktop/team-detail.png">
+</p>
