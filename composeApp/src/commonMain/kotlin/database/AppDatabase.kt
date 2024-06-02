@@ -19,9 +19,13 @@ import main.teams.data.local.TeamsDao
 @TypeConverters(
     TeamDriverEntityConverter::class
 )
-abstract class AppDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase(), DB {
     abstract fun driversDao(): DriversDao
     abstract fun teamsDao(): TeamsDao
+
+    override fun clearAllTables() {
+        super.clearAllTables()
+    }
 
     companion object {
         const val DB_NAME = "formula1.db"
@@ -29,3 +33,9 @@ abstract class AppDatabase : RoomDatabase() {
 }
 
 expect fun getAppDatabase(): AppDatabase
+
+// FIXME: Added a hack to resolve below issue:
+// Class 'AppDatabase_Impl' is not abstract and does not implement abstract base class member 'clearAllTables'.
+interface DB {
+    fun clearAllTables(): Unit {}
+}

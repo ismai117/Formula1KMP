@@ -1,9 +1,12 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.room)
@@ -31,8 +34,18 @@ kotlin {
             isStatic = true
         }
     }
-    
+
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
+    compilerOptions {
+        languageVersion.set(KotlinVersion.KOTLIN_2_0)
+    }
+
+
     sourceSets {
+
+        sourceSets.commonMain {
+            kotlin.srcDir("build/generated/ksp/metadata")
+        }
 
         val desktopMain by getting
         
@@ -125,12 +138,16 @@ compose.desktop {
     }
 }
 
-
 dependencies {
-    ksp(libs.androidx.room.compiler)
+    add("kspCommonMainMetadata", libs.androidx.room.compiler)
 }
 
 room {
     schemaDirectory("$projectDir/schemas")
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata" ) {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
+}

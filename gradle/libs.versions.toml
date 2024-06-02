@@ -4,7 +4,7 @@ android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
 androidx-activityCompose = "1.9.0"
-androidx-appcompat = "1.6.1"
+androidx-appcompat = "1.7.0"
 androidx-constraintlayout = "2.1.4"
 androidx-core-ktx = "1.13.1"
 androidx-espresso-core = "3.5.1"
@@ -12,19 +12,19 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.1.5"
 androidx-lifecycle = "2.8.0"
 androidx-navigation = "2.7.0-alpha07"
-androidx-room = "2.7.0-alpha02"
+androidx-room = "2.7.0-alpha03"
 androidx-datastore = "1.1.1"
 compose = "1.6.7"
 compose-plugin = "1.6.10"
 junit = "4.13.2"
-kotlin = "1.9.23"
-ksp = "1.9.23-1.0.20"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.21"
 sqlite = "2.5.0-SNAPSHOT"
 ktor = "2.3.11"
 koin = "3.6.0-alpha3"
 koinCompose = "3.6.0-alpha3"
 koinComposeMultiplatform = "1.2.0-alpha3"
-kotlinx-coroutines = "1.8.1"
+kotlinx-coroutines = "1.9.0-RC"
 kotlinx-serialization = "1.6.3"
 napier = "2.7.1"
 coil = "3.0.0-alpha06"
@@ -85,6 +85,7 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "androidx-room" }
