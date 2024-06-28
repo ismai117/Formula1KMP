@@ -8,9 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import main.drivers.presentation.DriverDetailScreen
-import main.drivers.presentation.DriversListScreen
+import main.horizontalPager.HorizontalPagerScreen
 import main.teams.presentation.TeamDetailScreen
-import main.teams.presentation.TeamsListScreen
 
 @Composable
 fun MainNavigation(
@@ -19,22 +18,24 @@ fun MainNavigation(
 
     NavHost(
         navController  = navController as NavHostController,
-        startDestination = DRIVERS_LIST_SCREEN_ROUTE
+        startDestination = HORIZONTAL_PAGER_SCREEN
     ){
         composable(
-            route = DRIVERS_LIST_SCREEN_ROUTE
+            route = HORIZONTAL_PAGER_SCREEN
         ){
-            DriversListScreen(
-                navController = navController,
+            HorizontalPagerScreen(
                 navigateToDriverDetailScreen = { driverNumber ->
                     navController.navigate(DRIVER_DETAIL_SCREEN_ROUTE + "/${driverNumber}")
+                },
+                navigateToTeamDetailScreen = { teamName ->
+                    navController.navigate(TEAM_DETAIL_SCREEN_ROUTE + "/${teamName}")
                 }
             )
         }
         composable(
             route = "$DRIVER_DETAIL_SCREEN_ROUTE/{driverNumber}",
             arguments = listOf(navArgument("driverNumber") { type = NavType.IntType })
-        ){backStackEntry ->
+        ){ backStackEntry ->
             backStackEntry.arguments?.getInt("driverNumber")?.let { driverNumber ->
                 DriverDetailScreen(
                     driverNumber = driverNumber,
@@ -45,19 +46,9 @@ fun MainNavigation(
             }
         }
         composable(
-            route = TEAMS_LIST_SCREEN_ROUTE
-        ){
-            TeamsListScreen(
-                navController = navController,
-                navigateToTeamDetailScreen = { teamName ->
-                    navController.navigate(TEAM_DETAIL_SCREEN_ROUTE + "/${teamName}")
-                }
-            )
-        }
-        composable(
             route = "$TEAM_DETAIL_SCREEN_ROUTE/{teamName}",
             arguments = listOf(navArgument("teamName") { type = NavType.StringType })
-        ){backStackEntry ->
+        ){ backStackEntry ->
             backStackEntry.arguments?.getString("teamName")?.let { teamName->
                 TeamDetailScreen(
                     teamName = teamName,
@@ -69,3 +60,6 @@ fun MainNavigation(
         }
     }
 }
+
+
+

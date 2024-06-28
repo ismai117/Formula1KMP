@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -124,8 +125,7 @@ fun TeamDetailScreenContent(
         containerColor = Color.White,
         contentColor = Color.Black,
         modifier = modifier.padding(
-            top = if (getPlatform().name == "desktop") 24.dp else 0.dp,
-            bottom = 24.dp
+            top = if (getPlatform().name == "desktop") 24.dp else 0.dp
         )
     ) { paddingValues ->
 

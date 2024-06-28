@@ -28,10 +28,10 @@ class DriversRemoteService() {
         install(Logging){
             logger = object : Logger {
                 override fun log(message: String) {
-                    Napier.d("HTTP Client", null, message)
+                    Napier.d(message, null,)
                 }
             }
-            level = LogLevel.HEADERS
+            level = LogLevel.ALL
         }
     }.also { Napier.base(DebugAntilog()) }
 

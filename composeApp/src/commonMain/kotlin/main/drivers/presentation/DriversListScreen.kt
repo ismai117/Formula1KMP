@@ -12,16 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -37,18 +33,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
 import getPlatform
 import main.drivers.domain.model.Driver
-import navigation.main.BottomNavigation
 import org.koin.compose.koinInject
 
 @Composable
 fun DriversListScreen(
-    navController: NavController,
     navigateToDriverDetailScreen: (Int) -> Unit
 ) {
 
@@ -60,7 +53,6 @@ fun DriversListScreen(
     }
 
     DriversListScreenContent(
-        navController = navController,
         state = state,
         navigateToDriverDetailScreen = navigateToDriverDetailScreen
     )
@@ -70,81 +62,66 @@ fun DriversListScreen(
 @Composable
 fun DriversListScreenContent(
     modifier: Modifier = Modifier,
-    navController: NavController,
     state: DriversState,
     navigateToDriverDetailScreen: (Int) -> Unit
 ) {
 
-    Scaffold(
-        bottomBar = {
-            BottomNavigation(
-                navController = navController
-            )
-        },
-        containerColor = MaterialTheme.colorScheme.background,
-        contentColor = Color.Black
-    ) { paddingValues ->
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
 
-        Column(
+        Box(
             modifier = modifier
-                .padding(paddingValues)
-                .fillMaxSize()
-        ) {
+                .padding(top = 24.dp)
+                .fillMaxWidth()
+        ){
 
-            Box(
+            Text(
+                text = "Drivers",
+                style = TextStyle(
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold
+                ),
                 modifier = modifier
-                    .padding(top = 40.dp)
-                    .fillMaxWidth()
-            ){
+                    .padding(start = 24.dp)
+                    .align(Alignment.CenterStart)
+            )
 
-                Text(
-                    text = "Drivers",
-                    style = TextStyle(
-                        fontSize = 40.sp,
-                        fontWeight = FontWeight.Bold
-                    ),
-                    modifier = modifier
-                        .padding(start = 24.dp)
-                        .align(Alignment.CenterStart)
-                )
-
-                Text(
-                    text = "2024",
-                    style = TextStyle(
-                        color = Color(0xffe80404),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    ),
-                    modifier = modifier
-                        .padding(end = 24.dp)
-                        .align(Alignment.CenterEnd)
-                )
-
-            }
-
-
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(324.dp),
+            Text(
+                text = "2024",
+                style = TextStyle(
+                    color = Color(0xffe80404),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                ),
                 modifier = modifier
-                    .padding(top = 12.dp),
-                contentPadding = PaddingValues(24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement =  Arrangement.spacedBy(16.dp)
-            ){
+                    .padding(end = 24.dp)
+                    .align(Alignment.CenterEnd)
+            )
 
-                items(
-                    items = state.drivers,
-                    key = { driver -> driver.driverNumber.hashCode() }
-                ) { item ->
+        }
 
-                    DriverItem(
-                        driver = item,
-                        onClick = { driverNumber ->
-                            navigateToDriverDetailScreen(driverNumber)
-                        }
-                    )
 
-                }
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(324.dp),
+            modifier = modifier
+                .padding(top = 12.dp),
+            contentPadding = PaddingValues(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement =  Arrangement.spacedBy(16.dp)
+        ){
+
+            items(
+                items = state.drivers,
+                key = { driver -> driver.driverNumber.hashCode() }
+            ) { item ->
+
+                DriverItem(
+                    driver = item,
+                    onClick = { driverNumber ->
+                        navigateToDriverDetailScreen(driverNumber)
+                    }
+                )
 
             }
 
