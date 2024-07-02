@@ -1,0 +1,47 @@
+CREATE TABLE DriverEntity (
+    broadcastName TEXT NOT NULL PRIMARY KEY,
+    countryCode TEXT NOT NULL,
+    driverNumber INTEGER NOT NULL,
+    firstName TEXT NOT NULL,
+    fullName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
+    meetingKey INTEGER NOT NULL,
+    nameAcronym TEXT NOT NULL,
+    sessionKey INTEGER NOT NULL,
+    teamColour TEXT NOT NULL,
+    teamName TEXT NOT NULL,
+    countryImageUrl TEXT NOT NULL,
+    driverNumberImage TEXT NOT NULL,
+    headshotImageUrl TEXT NOT NULL,
+    profileImageUrl TEXT NOT NULL,
+    biography TEXT NOT NULL
+);
+
+selectDrivers:
+SELECT *
+FROM DriverEntity;
+
+selectDriverByDriverNumber:
+SELECT *
+FROM DriverEntity
+WHERE driverNumber = ?;
+
+insertDriver:
+INSERT INTO DriverEntity(
+    broadcastName,
+    countryCode,
+    driverNumber,
+    firstName,
+    fullName,
+    lastName,
+    meetingKey,
+    nameAcronym,
+    sessionKey,
+    teamColour,
+    teamName,
+    countryImageUrl,
+    driverNumberImage,
+    headshotImageUrl,
+    profileImageUrl,
+    biography
+) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);

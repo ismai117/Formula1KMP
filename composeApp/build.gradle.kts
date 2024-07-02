@@ -1,5 +1,7 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
@@ -7,18 +9,14 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.room)
 }
 
 kotlin {
 
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
 
@@ -35,17 +33,13 @@ kotlin {
         }
     }
 
+
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         languageVersion.set(KotlinVersion.KOTLIN_2_0)
     }
 
-
     sourceSets {
-
-        sourceSets.commonMain {
-            kotlin.srcDir("build/generated/ksp/metadata")
-        }
 
         val desktopMain by getting
         
@@ -53,9 +47,9 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.android)
             implementation(libs.koin.android)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -63,32 +57,29 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.navigation.compose)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.androidx.room.runtime)
-            implementation(libs.sqlite.bundled)
-            implementation(libs.androidx.datastore.preferences.core)
-            implementation(libs.bundles.ktor.common)
-            implementation(libs.koin.core)
-            implementation(libs.koin.compose)
-            implementation(libs.napier)
+            implementation(libs.bundles.koin.common)
             implementation(libs.bundles.coil.common)
-            implementation("com.github.ajalt.colormath:colormath:3.5.0")
-            implementation("com.github.ajalt.colormath:colormath-ext-jetpack-compose:3.5.0")
+            implementation(project(":shared"))
+            implementation(libs.colormath)
+            implementation(libs.colormath.compose)
+            implementation(libs.constraintlayout)
+            implementation("app.cash.molecule:molecule-runtime:2.0.0")
         }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(libs.kotlinx.coroutines.test)
         }
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.ktor.client.java)
         }
+
     }
 }
 
@@ -135,19 +126,5 @@ compose.desktop {
             packageName = "org.ncgroup.formula1kmp"
             packageVersion = "1.0.0"
         }
-    }
-}
-
-dependencies {
-    add("kspCommonMainMetadata", libs.androidx.room.compiler)
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata" ) {
-        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

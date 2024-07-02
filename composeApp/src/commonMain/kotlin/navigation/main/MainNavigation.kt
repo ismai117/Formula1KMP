@@ -7,9 +7,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import main.drivers.presentation.DriverDetailScreen
-import main.horizontalPager.HorizontalPagerScreen
-import main.teams.presentation.TeamDetailScreen
+import ui.main.drivers.DriverDetailScreen
+import ui.main.horizontalPager.HorizontalPagerScreen
+import ui.main.teams.TeamDetailScreen
 
 @Composable
 fun MainNavigation(

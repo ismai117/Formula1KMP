@@ -5,9 +5,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import main.MainScreen
-import splash.SplashScreen
-import starter.presentation.StarterScreen
+import ui.main.MainScreen
+import ui.splash.SplashScreen
+import ui.starter.StarterScreen
 
 @Composable
 fun RootNavigation(
