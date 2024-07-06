@@ -11,24 +11,23 @@ androidx-espresso-core = "3.6.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 androidx-lifecycle = "2.8.0"
-androidx-navigation = "2.7.0-alpha07"
+androidx-navigation = "2.8.0-alpha08"
 androidx-room = "2.7.0-alpha04"
 androidx-datastore = "1.1.1"
 compose = "1.6.8"
-compose-plugin = "1.6.11"
+compose-plugin = "1.7.0-alpha01"
 junit = "4.13.2"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.22"
 sqlite = "2.5.0-SNAPSHOT"
-ktor = "3.0.0-wasm2"
+ktor = "2.3.12"
 koin = "3.5.6"
 koinComposeMultiplatform = "1.2.0-alpha3"
-kotlinx-coroutines = "1.8.1"
-kotlinx-serialization = "1.7.0"
+kotlinx-coroutines = "1.9.0-RC"
+kotlinx-serialization = "1.7.1"
 napier = "2.7.1"
 coil = "3.0.0-alpha07"
 sqlDelight = "2.0.2"
-harawata-appdirs = "1.2.1"
 colormath = "3.5.0"
 constraintlayout = "0.4.0"
 multiplatformSettings = "1.1.1"
@@ -52,12 +51,12 @@ androidx-datastore-preferences-core = { group = "androidx.datastore", name = "da
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
-
-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
@@ -68,9 +67,6 @@ ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serializatio
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
-ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "ktor" }
-ktor-client-curl = { module = "io.ktor:ktor-client-curl", version.ref = "ktor" }
-ktor-client-winhttp = { module = "io.ktor:ktor-client-winhttp", version.ref = "ktor" }
 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComposeMultiplatform" }
@@ -93,15 +89,10 @@ constraintlayout = { module = "tech.annexflow.compose:constraintlayout-compose-m
 
 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
 
-sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
-sqldelight-coroutines-extensions = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
-sqlDelight-driver-js = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqlDelight" }
-
 [bundles]
 ktor-common = ["ktor-client-core", "ktor-client-json", "ktor-client-logging", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"]
 coil-common = ["coil-compose", "coil-compose-core", "coil-network-ktor", "coil-mp"]
 koin-common = ["koin-core", "koin-compose"]
-sqlDelight-common = ["sqlDelight-runtime", "sqldelight-coroutines-extensions"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -109,7 +100,6 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "androidx-room" }
-sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }

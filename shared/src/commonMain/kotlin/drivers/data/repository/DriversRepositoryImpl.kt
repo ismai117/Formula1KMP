@@ -4,7 +4,7 @@ import drivers.data.local.DriversLocalService
 import drivers.domain.repository.DriversRepository
 import kotlinx.coroutines.flow.Flow
 import main.drivers.data.remote.DriversRemoteService
-import main.drivers.domain.model.Driver
+import drivers.domain.model.Driver
 import utils.Resource
 import utils.networkBoundResource
 
@@ -22,7 +22,7 @@ class DriversRepositoryImpl(
         )
     }
 
-    override suspend fun getDriverByDriverNumber(driverNumber: Int): Driver {
+    override suspend fun getDriverByDriverNumber(driverNumber: Int): Driver? {
         return local.selectDriverByDriverNumber(driverNumber)
     }
 

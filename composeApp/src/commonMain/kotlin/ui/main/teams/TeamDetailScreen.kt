@@ -1,27 +1,20 @@
 package ui.main.teams
 
+import Type
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
-import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -30,10 +23,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -48,7 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.ImageLoader
 import getPlatform
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 import org.koin.compose.koinInject
 import teams.viewmodel.TeamsViewModel
 import ui.sharedComponents.parallaxLayoutModifier
@@ -73,13 +70,17 @@ fun TeamDetailScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun TeamDetailScreenContent(
     modifier: Modifier = Modifier,
+    platformType: Type = getPlatform().type,
     team: Team?,
     navigateBack: () -> Unit
 ) {
+
+    val windowSizeClass = calculateWindowSizeClass()
+    val isCompacted = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
     Scaffold(
         topBar = {
@@ -121,31 +122,36 @@ fun TeamDetailScreenContent(
                     navigationIconContentColor = Color.Black
                 )
             )
-        },
-        containerColor = Color.White,
-        contentColor = Color.Black,
-        modifier = modifier.padding(
-            top = if (getPlatform().name == "desktop" || getPlatform().name == "web") 24.dp else 0.dp
-        )
+        }
     ) { paddingValues ->
 
+        Box(
+            modifier = modifier
+                .padding(paddingValues)
+                .padding(top = if (getPlatform().type == Type.NON_MOBILE) 24.dp else 0.dp)
+                .fillMaxSize()
+        ) {
 
-        if (getPlatform().name != "desktop" && getPlatform().name != "web"){
+            if (platformType == Type.MOBILE) {
 
-            Mobile(
-                team = team,
-                paddingValues = paddingValues
-            )
+                Mobile(team = team)
 
-        }else {
+            } else {
 
-            NonMobile(
-                team = team,
-                paddingValues = paddingValues
-            )
+               if (isCompacted){
+
+                   Mobile(team = team)
+
+               } else {
+
+                   NonMobile(team = team)
+
+               }
+
+            }
+
 
         }
-
 
     }
 
@@ -156,16 +162,13 @@ fun TeamDetailScreenContent(
 @Composable
 fun Mobile(
     modifier: Modifier = Modifier,
-    team: Team?,
-    paddingValues: PaddingValues
-){
+    team: Team?
+) {
 
     val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier
-            .padding(paddingValues)
-            .verticalScroll(scrollState)
+        modifier = modifier.verticalScroll(scrollState)
     ) {
 
         FlowRow(
@@ -238,7 +241,7 @@ fun Mobile(
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .background(Color.White),
+                .background(MaterialTheme.colorScheme.background)
         ) {
 
             Column(
@@ -520,90 +523,95 @@ fun Mobile(
 
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun NonMobile(
     modifier: Modifier = Modifier,
-    team: Team?,
-    paddingValues: PaddingValues
-){
+    team: Team?
+) {
+
+    val scrollState = rememberScrollState()
 
     Row(
-        modifier = modifier
-            .padding(paddingValues)
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
 
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(200.dp),
-            modifier = modifier
-                .weight(0.30f)
-                .fillMaxHeight(),
-            contentPadding = PaddingValues(24.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        FlowRow(
+            modifier = modifier.width(340.dp),
+            maxItemsInEachRow = 2
         ) {
 
-            items(
-                items = team?.drivers.orEmpty()
-            ) { driver ->
-
+            team?.drivers?.forEach { driver ->
                 Column(
                     modifier = modifier
-                        .height(300.dp)
+                        .height(340.dp)
+                        .weight(1f)
 //                    .border(width = 1.dp, color = Color.Black)
                 ) {
-
-                    ImageLoader(
-                        url = driver.profileImageUrl,
-                        description = driver.fullName,
+                    Box(
                         modifier = modifier
                             .fillMaxWidth()
-                            .weight(1f)
-                    )
-
-                    Column(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                            .weight(0.70f)
+//                        .border(width = 1.dp, color = Color.Black)
                     ) {
 
-                        Text(
-                            text = "${driver.driverNumber}",
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        )
-
-                        Text(
-                            text = driver.fullName,
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold
-                            )
+                        ImageLoader(
+                            url = driver.profileImageUrl,
+                            description = driver.fullName,
+                            modifier = modifier.fillMaxSize()
                         )
 
                     }
+                    Box(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .weight(0.30f)
+                    ) {
 
+                        Column(
+                            modifier = modifier
+                                .padding(start = 12.dp)
+                                .align(Alignment.CenterStart),
+                            verticalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+
+                            Text(
+                                text = "${driver.driverNumber}",
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
+
+                            Text(
+                                text = driver.fullName,
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            )
+
+                        }
+
+                    }
                     HorizontalDivider(
                         modifier = modifier.fillMaxWidth()
                     )
                 }
-
             }
 
         }
 
         Box(
             modifier = modifier
-                .weight(0.70f)
+                .weight(1f)
                 .fillMaxHeight()
-        ){
+        ) {
             Column(
                 modifier = modifier
                     .padding(24.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
 
@@ -873,7 +881,6 @@ fun NonMobile(
                 }
 
             }
-
         }
 
     }

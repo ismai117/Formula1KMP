@@ -1,7 +1,7 @@
 package teams.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 import utils.Resource
 
 interface TeamsRepository {

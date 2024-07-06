@@ -6,7 +6,6 @@ import starter.data.repository.StarterRepositoryImpl
 import starter.domain.repository.StarterRepository
 import starter.viewmodel.StarterViewModel
 
-
 val starterModule = module{
     single { StarterLocalService(get()) }
     single<StarterRepository> { StarterRepositoryImpl(get()) }

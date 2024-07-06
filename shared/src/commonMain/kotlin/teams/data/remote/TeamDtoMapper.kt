@@ -1,8 +1,8 @@
 package teams.data.remote
 
 import main.teams.data.remote.TeamDto
-import main.teams.domain.model.Team
-import main.teams.domain.model.TeamDriver
+import teams.domain.model.Team
+import teams.domain.model.TeamDriver
 
 fun TeamDto.mapToDomainModel(): Team {
     return Team(

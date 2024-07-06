@@ -1,9 +1,9 @@
 package drivers.data.local
 
 import database.AppDatabase
+import drivers.domain.model.Driver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import main.drivers.domain.model.Driver
 
 class DriversLocalService(
     private val db: AppDatabase

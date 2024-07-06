@@ -1,5 +1,6 @@
 package main.drivers.data.remote
 
+import drivers.data.remote.mapToDomainModelList
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
@@ -12,7 +13,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.url
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import main.drivers.domain.model.Driver
+import drivers.domain.model.Driver
 import utils.Constants.BASE_URL
 
 

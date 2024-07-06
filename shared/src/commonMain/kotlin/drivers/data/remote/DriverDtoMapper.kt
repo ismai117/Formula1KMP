@@ -1,6 +1,7 @@
-package main.drivers.data.remote
+package drivers.data.remote
 
-import main.drivers.domain.model.Driver
+import drivers.domain.model.Driver
+import main.drivers.data.remote.DriverDto
 
 
 fun DriverDto.mapToDomainModel(): Driver {

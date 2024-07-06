@@ -6,7 +6,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import main.drivers.data.local.DriverEntity
+import drivers.data.local.DriverEntity
 import drivers.data.local.DriversDao
 import teams.data.local.TeamEntity
 import teams.data.local.TeamsDao

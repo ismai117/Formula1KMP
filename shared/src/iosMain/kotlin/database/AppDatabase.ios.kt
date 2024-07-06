@@ -5,8 +5,6 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import platform.Foundation.NSHomeDirectory
-import database.AppDatabase
-import database.instantiateImpl
 
 actual fun getAppDatabase(): AppDatabase {
     val dbFile = NSHomeDirectory() + "/${AppDatabase.DB_NAME}"

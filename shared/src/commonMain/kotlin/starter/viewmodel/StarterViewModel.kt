@@ -2,10 +2,11 @@ package starter.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import getPlatform
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import starter.domain.repository.StarterRepository
 
@@ -29,16 +30,16 @@ class StarterViewModel(
     }
 
     private fun getStartedState(){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(getPlatform().dispatcherIO) {
             starterRepository.getStartedState()
                 .collect { result ->
-                    _state.value = StarterState(isStarted = result ?: false)
+                    _state.update { it.copy(isStarted = result ?: false) }
                 }
         }
     }
 
     private fun setStartedState(){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(getPlatform().dispatcherIO) {
             starterRepository.setStartedState()
         }
     }

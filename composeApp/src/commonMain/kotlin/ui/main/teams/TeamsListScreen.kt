@@ -19,6 +19,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import coil3.ImageLoader
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 import org.koin.compose.koinInject
 import teams.viewmodel.TeamsState
 import ui.sharedComponents.VerticalGrid
@@ -42,7 +44,7 @@ fun TeamsListScreen(
 ) {
 
     val teamsViewModel = koinInject<TeamsViewModel>()
-    val state = teamsViewModel.state
+    val state by teamsViewModel.state.collectAsState()
 
     LaunchedEffect(Unit){
         teamsViewModel.getTeams()

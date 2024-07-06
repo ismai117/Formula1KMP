@@ -1,17 +1,13 @@
 package teams.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
+import getPlatform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 import teams.domain.repository.TeamsRepository
 import utils.Resource
 
@@ -26,26 +22,25 @@ class TeamsViewModel(
     private val teamsRepository: TeamsRepository
 ) : ViewModel(){
 
-    var state by mutableStateOf(TeamsState())
+    private val _state = MutableStateFlow(TeamsState())
+    val state = _state.asStateFlow()
 
     private val _team = MutableStateFlow<Team?>(null)
     val team = _team.asStateFlow()
 
-
     fun getTeams() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(getPlatform().dispatcherIO) {
             teamsRepository.getTeams()
-                .flowOn(Dispatchers.Main)
                 .collect { result ->
-                    state = when (result) {
+                     when (result) {
                         is Resource.Loading -> {
-                            state.copy(isLoading = true)
+                            _state.update { it.copy(isLoading = true) }
                         }
                         is Resource.Success -> {
-                            state.copy(isLoading = false, status = true, teams = result.data.orEmpty())
+                            _state.update { it.copy(isLoading = false, status = true, teams = result.data.orEmpty()) }
                         }
                         is Resource.Error -> {
-                            state.copy(isLoading = false, message = result.message)
+                            _state.update { it.copy(isLoading = false, message = result.message) }
                         }
                     }
                 }
@@ -53,8 +48,8 @@ class TeamsViewModel(
     }
 
     fun getTeamByTeamName(name: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _team.value = teamsRepository.getTeamByTeamName(name)
+        viewModelScope.launch(getPlatform().dispatcherIO) {
+            _team.update { teamsRepository.getTeamByTeamName(name) }
         }
     }
 

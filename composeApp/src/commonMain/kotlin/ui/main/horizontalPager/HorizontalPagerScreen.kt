@@ -68,15 +68,12 @@ fun HorizontalPagerScreenContent(
     navigateToTeamDetailScreen: (String) -> Unit
 ) {
 
-    Scaffold(
-        modifier = modifier.padding(
-            top = if (getPlatform().name == "desktop") 24.dp else 0.dp
-        )
-    ) { paddingValues ->
+    Scaffold { paddingValues ->
 
         Column(
             modifier = modifier
                 .padding(paddingValues)
+                .padding(top = if (getPlatform().type == Type.NON_MOBILE) 24.dp else 0.dp)
                 .fillMaxSize()
         ) {
 

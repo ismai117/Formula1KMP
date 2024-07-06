@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -14,10 +15,22 @@ plugins {
 kotlin {
 
     androidTarget {
+
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation("androidx.compose.ui:ui-test-junit4-android:1.7.0-beta03")
+                debugImplementation("androidx.compose.ui:ui-test-manifest:1.7.0-beta03")
+            }
+        }
+
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_17)
         }
+
     }
 
     jvm("desktop")
@@ -65,6 +78,7 @@ kotlin {
             implementation(libs.colormath)
             implementation(libs.colormath.compose)
             implementation(libs.constraintlayout)
+            implementation("dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.5.0")
             implementation("app.cash.molecule:molecule-runtime:2.0.0")
         }
 
@@ -97,6 +111,8 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
@@ -127,4 +143,8 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+compose.experimental {
+    web.application {}
 }

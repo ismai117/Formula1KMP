@@ -1,11 +1,10 @@
 package ui.main.drivers
 
-import androidx.compose.foundation.ScrollState
+import Type
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -22,10 +21,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -33,7 +36,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +44,7 @@ import androidx.compose.ui.unit.sp
 import coil3.ImageLoader
 import drivers.viewmodel.DriversViewModel
 import getPlatform
-import main.drivers.domain.model.Driver
+import drivers.domain.model.Driver
 import org.koin.compose.koinInject
 import ui.sharedComponents.parallaxLayoutModifier
 
@@ -67,14 +69,18 @@ fun DriverDetailScreen(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun DriverDetailScreenContent(
     modifier: Modifier = Modifier,
+    platformType: Type = getPlatform().type,
     driver: Driver?,
     driverNumber: Int,
     navigateBack: () -> Unit
 ) {
+
+    val windowSizeClass = calculateWindowSizeClass()
+    val isCompacted = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
     Scaffold(
         topBar = {
@@ -99,29 +105,42 @@ fun DriverDetailScreenContent(
                     navigationIconContentColor = Color.Black
                 )
             )
-        },
-        containerColor = Color.White,
-        contentColor = Color.Black,
-        modifier = modifier.padding(
-            top = if (getPlatform().name == "desktop" || getPlatform().name == "web") 24.dp else 0.dp
-        )
+        }
     ) { paddingValues ->
 
-        if (getPlatform().name != "desktop" && getPlatform().name != "web"){
+        Box(
+            modifier = modifier
+                .padding(paddingValues)
+                .padding(top = if (getPlatform().type == Type.NON_MOBILE) 24.dp else 0.dp)
+                .fillMaxSize()
+        ) {
 
-            Mobile(
-                driver = driver,
-                driverNumber = driverNumber,
-                paddingValues = paddingValues
-            )
+            if (platformType == Type.MOBILE) {
 
-        }else {
+                Mobile(
+                    driver = driver,
+                    driverNumber = driverNumber
+                )
 
-            NonMobile(
-                driver = driver,
-                driverNumber = driverNumber,
-                paddingValues = paddingValues
-            )
+            } else {
+
+                if (isCompacted){
+
+                    Mobile(
+                        driver = driver,
+                        driverNumber = driverNumber
+                    )
+
+                } else {
+
+                    NonMobile(
+                        driver = driver,
+                        driverNumber = driverNumber
+                    )
+
+                }
+
+            }
 
         }
 
@@ -133,15 +152,13 @@ fun DriverDetailScreenContent(
 fun Mobile(
     modifier: Modifier = Modifier,
     driver: Driver?,
-    driverNumber: Int,
-    paddingValues: PaddingValues
+    driverNumber: Int
 ){
 
     val scrollState = rememberScrollState()
 
     Column(
         modifier = modifier
-            .padding(paddingValues)
             .fillMaxSize()
             .verticalScroll(scrollState)
     ) {
@@ -165,7 +182,7 @@ fun Mobile(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.background)
         ) {
 
             Column(
@@ -307,17 +324,12 @@ fun Mobile(
 fun NonMobile(
     modifier: Modifier = Modifier,
     driver: Driver?,
-    driverNumber: Int,
-    paddingValues: PaddingValues
+    driverNumber: Int
 ){
 
     val scrollState = rememberScrollState()
 
-    Row(
-        modifier = modifier
-            .padding(paddingValues)
-            .fillMaxSize()
-    ) {
+    Row(modifier = modifier.fillMaxSize()) {
 
         Box(
             modifier = modifier

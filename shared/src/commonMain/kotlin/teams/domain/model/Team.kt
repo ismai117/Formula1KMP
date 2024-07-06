@@ -1,5 +1,4 @@
-package main.teams.domain.model
-
+package teams.domain.model
 
 data class Team(
     val id: Int?,

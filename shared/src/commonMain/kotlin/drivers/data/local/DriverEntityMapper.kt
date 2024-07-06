@@ -1,9 +1,8 @@
 package drivers.data.local
 
+import drivers.domain.model.Driver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import main.drivers.data.local.DriverEntity
-import main.drivers.domain.model.Driver
 
 
 fun DriverEntity.mapToDomainModel(): Driver {

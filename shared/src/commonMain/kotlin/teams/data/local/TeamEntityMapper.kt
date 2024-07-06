@@ -2,8 +2,8 @@ package teams.data.local
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import main.teams.domain.model.Team
-import main.teams.domain.model.TeamDriver
+import teams.domain.model.Team
+import teams.domain.model.TeamDriver
 
 
 fun TeamEntity.mapToDomainModel(): Team {

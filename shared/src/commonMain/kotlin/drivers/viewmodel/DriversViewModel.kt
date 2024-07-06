@@ -1,18 +1,15 @@
 package drivers.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
-import main.drivers.domain.model.Driver
+import drivers.domain.model.Driver
 import drivers.domain.repository.DriversRepository
+import getPlatform
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.update
 import utils.Resource
 
 data class DriversState(
@@ -26,25 +23,25 @@ class DriversViewModel(
     private val driversRepository: DriversRepository
 ) : ViewModel() {
 
-    var state by mutableStateOf(DriversState())
+    private val _state = MutableStateFlow(DriversState())
+    val state = _state.asStateFlow()
 
     private val _driver = MutableStateFlow<Driver?>(null)
     val driver = _driver.asStateFlow()
 
     fun getDrivers() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(getPlatform().dispatcherIO) {
             driversRepository.getDrivers()
-                .flowOn(Dispatchers.Main)
                 .collect { result ->
-                    state = when (result) {
+                    when (result) {
                         is Resource.Loading -> {
-                            state.copy(isLoading = true)
+                            _state.update { it.copy(isLoading = true) }
                         }
                         is Resource.Success -> {
-                            state.copy(isLoading = false, status = true, drivers = result.data.orEmpty())
+                            _state.update { it.copy(isLoading = false, status = true, drivers = result.data.orEmpty()) }
                         }
                         is Resource.Error -> {
-                            state.copy(isLoading = false, message = result.message)
+                            _state.update { it.copy(isLoading = false, message = result.message) }
                         }
                     }
                 }
@@ -52,8 +49,8 @@ class DriversViewModel(
     }
 
     fun getDriverByDriverNumber(driverNumber: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _driver.value = driversRepository.getDriverByDriverNumber(driverNumber)
+        viewModelScope.launch(getPlatform().dispatcherIO) {
+            _driver.update { driversRepository.getDriverByDriverNumber(driverNumber) }
         }
     }
 

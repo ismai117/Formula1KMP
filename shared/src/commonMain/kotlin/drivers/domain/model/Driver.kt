@@ -1,4 +1,4 @@
-package main.drivers.domain.model
+package drivers.domain.model
 
 data class Driver(
     val id: Int?,

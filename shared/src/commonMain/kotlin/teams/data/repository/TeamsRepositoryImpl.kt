@@ -2,7 +2,7 @@ package teams.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import main.teams.data.remote.TeamsRemoteService
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 import teams.data.local.TeamsLocalService
 import teams.domain.repository.TeamsRepository
 import utils.Resource

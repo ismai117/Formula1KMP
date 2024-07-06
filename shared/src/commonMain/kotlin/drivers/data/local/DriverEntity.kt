@@ -1,4 +1,4 @@
-package main.drivers.data.local
+package drivers.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

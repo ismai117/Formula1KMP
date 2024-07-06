@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,7 +34,7 @@ import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
 import drivers.viewmodel.DriversState
 import drivers.viewmodel.DriversViewModel
-import main.drivers.domain.model.Driver
+import drivers.domain.model.Driver
 import org.koin.compose.koinInject
 import ui.sharedComponents.VerticalGrid
 
@@ -42,7 +44,7 @@ fun DriversListScreen(
 ) {
 
     val driversViewModel = koinInject<DriversViewModel>()
-    val state = driversViewModel.state
+    val state by driversViewModel.state.collectAsState()
 
     LaunchedEffect(Unit){
         driversViewModel.getDrivers()

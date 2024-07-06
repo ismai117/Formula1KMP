@@ -3,7 +3,7 @@ package teams.data.local
 import database.AppDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 
 class TeamsLocalService(
     private val db: AppDatabase

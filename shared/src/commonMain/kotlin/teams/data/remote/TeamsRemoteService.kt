@@ -12,7 +12,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.url
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import main.teams.domain.model.Team
+import teams.domain.model.Team
 import teams.data.remote.mapToDomainModelList
 import utils.Constants.BASE_URL
 
