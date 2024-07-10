@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalDistributionDsl
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
@@ -11,11 +12,18 @@ plugins {
 
 kotlin {
 
-    js() {
-        browser()
+    js(IR) {
+        moduleName = "webApp"
+        browser {
+            @OptIn(ExperimentalDistributionDsl::class)
+            distribution {
+                outputDirectory.set(projectDir.resolve("output"))
+            }
+        }
         binaries.executable()
     }
 
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "webApp"
         browser {
