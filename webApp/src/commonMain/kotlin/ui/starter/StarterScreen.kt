@@ -23,6 +23,9 @@ import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -79,6 +82,7 @@ fun StarterScreen(
 
 }
 
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun StarterScreenContent(
     platformType: Type = getPlatform().type,
@@ -89,6 +93,9 @@ fun StarterScreenContent(
 ) {
 
     val hostState = remember { SnackbarHostState() }
+
+    val windowSizeClass = calculateWindowSizeClass()
+    val isCompacted = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
     LaunchedEffect(driversState.status, teamsState.status) {
         if (driversState.status && teamsState.status) {
@@ -117,7 +124,7 @@ fun StarterScreenContent(
         }
     ) {
 
-        if (platformType == Type.MOBILE) {
+        if (isCompacted) {
 
             Mobile(
                 driversState = driversState,
