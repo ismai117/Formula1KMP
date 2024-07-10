@@ -11,6 +11,8 @@ Provides information on Formula 1 2024 teams and drivers
 - IOS
 - Desktop
 
+Live [View](https://ismai117.github.io/Formula1KMP/) (Safari not working!)
+
 ## Stack
 - 🍎 Shared UI - [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform)
 - 🚏 Navigation - [Androidx](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html#sample-project)
