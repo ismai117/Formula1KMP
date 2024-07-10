@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -72,6 +73,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.navigation.compose)
             implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.serialization.json)
             implementation(libs.bundles.koin.common)
             implementation(libs.bundles.coil.common)
             implementation(project(":shared"))

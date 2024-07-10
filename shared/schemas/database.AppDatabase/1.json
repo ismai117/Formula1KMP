@@ -1,0 +1,239 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "17e16934f59c1bd797e5d709e9f15a49",
+    "entities": [
+      {
+        "tableName": "drivers_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `broadcastName` TEXT NOT NULL, `countryCode` TEXT NOT NULL, `driverNumber` INTEGER NOT NULL, `firstName` TEXT NOT NULL, `fullName` TEXT NOT NULL, `lastName` TEXT NOT NULL, `meetingKey` INTEGER NOT NULL, `nameAcronym` TEXT NOT NULL, `sessionKey` INTEGER NOT NULL, `teamColour` TEXT NOT NULL, `teamName` TEXT NOT NULL, `countryImageUrl` TEXT NOT NULL, `driverNumberImage` TEXT NOT NULL, `headshotImageUrl` TEXT NOT NULL, `profileImageUrl` TEXT NOT NULL, `biography` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "broadcastName",
+            "columnName": "broadcastName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countryCode",
+            "columnName": "countryCode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "driverNumber",
+            "columnName": "driverNumber",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstName",
+            "columnName": "firstName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastName",
+            "columnName": "lastName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meetingKey",
+            "columnName": "meetingKey",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nameAcronym",
+            "columnName": "nameAcronym",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionKey",
+            "columnName": "sessionKey",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teamColour",
+            "columnName": "teamColour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teamName",
+            "columnName": "teamName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "countryImageUrl",
+            "columnName": "countryImageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "driverNumberImage",
+            "columnName": "driverNumberImage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "headshotImageUrl",
+            "columnName": "headshotImageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "profileImageUrl",
+            "columnName": "profileImageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "biography",
+            "columnName": "biography",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "teams_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `fullName` TEXT NOT NULL, `logoUrl` TEXT NOT NULL, `carImageUrl` TEXT NOT NULL, `teamColour` TEXT NOT NULL, `drivers` TEXT NOT NULL, `base` TEXT NOT NULL, `chassis` TEXT NOT NULL, `fastestLaps` INTEGER NOT NULL, `firstTeamEntry` INTEGER NOT NULL, `highestRaceFinish` TEXT NOT NULL, `polePositions` INTEGER NOT NULL, `powerUnit` TEXT NOT NULL, `teamChief` TEXT NOT NULL, `technicalChief` TEXT NOT NULL, `worldChampionships` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fullName",
+            "columnName": "fullName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "logoUrl",
+            "columnName": "logoUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "carImageUrl",
+            "columnName": "carImageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teamColour",
+            "columnName": "teamColour",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drivers",
+            "columnName": "drivers",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "base",
+            "columnName": "base",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chassis",
+            "columnName": "chassis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fastestLaps",
+            "columnName": "fastestLaps",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstTeamEntry",
+            "columnName": "firstTeamEntry",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "highestRaceFinish",
+            "columnName": "highestRaceFinish",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "polePositions",
+            "columnName": "polePositions",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "powerUnit",
+            "columnName": "powerUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "teamChief",
+            "columnName": "teamChief",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "technicalChief",
+            "columnName": "technicalChief",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "worldChampionships",
+            "columnName": "worldChampionships",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '17e16934f59c1bd797e5d709e9f15a49')"
+    ]
+  }
+}
