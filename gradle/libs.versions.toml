@@ -12,24 +12,24 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 androidx-lifecycle = "2.8.0"
 androidx-navigation = "2.8.0-alpha08"
-androidx-room = "2.7.0-alpha04"
-androidx-datastore = "1.1.1"
 compose = "1.6.8"
 compose-plugin = "1.7.0-alpha01"
 junit = "4.13.2"
-kotlin = "2.1.0-dev-875"
-ksp = "2.0.0-1.0.22"
-sqlite = "2.5.0-SNAPSHOT"
+kotlin = "2.0.20-Beta2"
 ktor = "3.0.0-wasm2"
-koin = "3.5.6"
-koinComposeMultiplatform = "1.2.0-alpha3"
+koin = "3.6.0-Beta4"
+koinComposeMultiplatform = "1.2.0-Beta4"
 kotlinx-coroutines = "1.8.1"
 kotlinx-serialization = "1.7.1"
 napier = "2.7.1"
 coil = "3.0.0-alpha07"
 colormath = "3.5.0"
+windowSizeClass = "0.5.0"
 constraintlayout = "0.4.0"
 multiplatformSettings = "1.1.1"
+kstore = "0.8.0"
+harawata-appdirs = "1.2.2"
+
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -44,18 +44,11 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
-androidx-datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "androidx-datastore" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 
-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
-
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
@@ -73,8 +66,6 @@ koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinComp
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
@@ -85,14 +76,23 @@ coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 colormath  = { module = "com.github.ajalt.colormath:colormath", version.ref = "colormath" }
 colormath-compose  = { module = "com.github.ajalt.colormath:colormath-ext-jetpack-compose", version.ref = "colormath" }
 
+windowSizeClass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "windowSizeClass" }
+
 constraintlayout = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraintlayout" }
 
 multiplatformSettings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "multiplatformSettings" }
+
+kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
+kstore-file = { module = "io.github.xxfast:kstore-file", version.ref = "kstore" }
+kstore-storage = { module = "io.github.xxfast:kstore-storage", version.ref = "kstore" }
+
+harawata-appdirs = { module = "net.harawata:appdirs", version.ref = "harawata-appdirs" }
 
 [bundles]
 ktor-common = ["ktor-client-core", "ktor-client-json", "ktor-client-logging", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"]
 coil-common = ["coil-compose", "coil-compose-core", "coil-network-ktor", "coil-mp"]
 koin-common = ["koin-core", "koin-compose"]
+colormath-common = ["colormath", "colormath-compose"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -101,5 +101,3 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-room = { id = "androidx.room", version.ref = "androidx-room" }
