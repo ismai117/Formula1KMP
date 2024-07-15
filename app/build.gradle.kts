@@ -83,7 +83,6 @@ kotlin {
             implementation(libs.bundles.koin.common)
             implementation(libs.bundles.colormath.common)
             implementation(libs.constraintlayout)
-            implementation("app.cash.molecule:molecule-runtime:2.0.0")
 
             implementation(project(":core:di"))
             implementation(project(":core:model"))
