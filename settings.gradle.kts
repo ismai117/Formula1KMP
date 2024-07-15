@@ -32,6 +32,23 @@ dependencyResolutionManagement {
     }
 }
 
-include(":composeApp")
-include(":shared")
+include(":app")
+
+include(":core:database")
+include(":core:network")
+include(":core:model")
+include(":core:storage")
+include(":core:ui")
+include(":core:di")
+include(":core:utils")
+
+include(":data:repository")
+
+include(":feature:starter")
+include(":feature:drivers")
+include(":feature:teams")
+
+include(":androidApp")
+include(":desktopApp")
 include(":webApp")
+

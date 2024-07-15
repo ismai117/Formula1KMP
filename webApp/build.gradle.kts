@@ -7,17 +7,37 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
 
+    val copyJsResources = tasks.create("copyJsResourcesWorkaround", Copy::class.java) {
+        from(project(":app").file("src/commonMain/composeResources"))
+        into("build/processedResources/js/main")
+    }
+
+    val copyWasmResources = tasks.create("copyWasmResourcesWorkaround", Copy::class.java) {
+        from(project(":app").file("src/commonMain/composeResources"))
+        into("build/processedResources/wasmJs/main")
+    }
+
+    afterEvaluate {
+        project.tasks.getByName("jsProcessResources").finalizedBy(copyJsResources)
+        project.tasks.getByName("wasmJsProcessResources").finalizedBy(copyWasmResources)
+        project.tasks.getByName("wasmJsDevelopmentExecutableCompileSync").dependsOn(copyWasmResources)
+        project.tasks.getByName("jsDevelopmentExecutableCompileSync").mustRunAfter(copyJsResources)
+        project.tasks.getByName("wasmJsDevelopmentExecutableCompileSync").mustRunAfter(copyWasmResources)
+        project.tasks.getByName("jsProductionExecutableCompileSync").mustRunAfter(copyJsResources)
+        project.tasks.getByName("wasmJsProductionExecutableCompileSync").mustRunAfter(copyWasmResources)
+        //project.tasks.getByName("wasmDevelopmentExecutableCompileSync").mustRunAfter(copyWasmResources)
+        project.tasks.getByName("wasmJsDevelopmentExecutableCompileSync").dependsOn(copyWasmResources)
+    }
+
     js(IR) {
         moduleName = "webApp"
         browser {
-            @OptIn(ExperimentalDistributionDsl::class)
-            distribution {
-                outputDirectory.set(projectDir.resolve("output"))
+            commonWebpackConfig {
+                outputFileName = "webApp.js"
             }
         }
         binaries.executable()
@@ -41,31 +61,30 @@ kotlin {
 
     sourceSets {
 
-        commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel.compose)
-            implementation(libs.androidx.navigation.compose)
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.bundles.ktor.common)
-            implementation(libs.bundles.koin.common)
-            implementation(libs.napier)
-            implementation(libs.multiplatformSettings)
-            implementation(libs.bundles.coil.common)
-            implementation(libs.colormath)
-            implementation(libs.colormath.compose)
-            implementation(libs.constraintlayout)
-            implementation("dev.chrisbanes.material3:material3-window-size-class-multiplatform:0.5.0")
+        val jsWasmMain by creating {
+            dependencies {
+                implementation(project(":app"))
+                implementation(compose.runtime)
+                implementation(compose.ui)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
+                implementation(libs.bundles.koin.common)
+            }
         }
 
-        jsMain.dependencies {
-            implementation(libs.ktor.client.js)
+        val jsMain by getting {
+            dependsOn(jsWasmMain)
+        }
+
+        val wasmJsMain by getting {
+            dependsOn(jsWasmMain)
         }
 
     }
 }
 
+compose.experimental {
+    web.application {}
+}
