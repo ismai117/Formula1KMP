@@ -36,17 +36,17 @@ kotlin {
         val desktopMain by getting
 
         androidMain.dependencies {
+            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.android)
             implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.koin.common)
             implementation(libs.napier)
-            implementation(project(":core:model"))
         }
 
         iosMain.dependencies {
@@ -54,6 +54,7 @@ kotlin {
         }
 
         desktopMain.dependencies {
+            implementation(libs.kotlinx.coroutines.swing)
             implementation(libs.ktor.client.java)
         }
 

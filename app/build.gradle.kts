@@ -67,6 +67,7 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation(libs.kotlinx.coroutines.android)
             implementation(libs.koin.android)
         }
 
@@ -78,23 +79,24 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.navigation.compose)
-            implementation(libs.kotlinx.coroutines)
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.koin.common)
             implementation(libs.bundles.colormath.common)
             implementation(libs.constraintlayout)
-            implementation("app.cash.molecule:molecule-runtime:2.0.0")
 
-            implementation(project(":core:di"))
             implementation(project(":core:model"))
             implementation(project(":core:ui"))
             implementation(project(":core:utils"))
 
-            implementation(project(":data:repository"))
+            implementation(project(":feature:starter:di"))
+            implementation(project(":feature:starter:presentation"))
 
-            implementation(project(":feature:starter"))
-            implementation(project(":feature:drivers"))
-            implementation(project(":feature:teams"))
+            implementation(project(":feature:drivers:di"))
+            implementation(project(":feature:drivers:presentation"))
+
+            implementation(project(":feature:teams:di"))
+            implementation(project(":feature:teams:presentation"))
 
 
         }
@@ -107,6 +109,7 @@ kotlin {
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
         }
 
     }

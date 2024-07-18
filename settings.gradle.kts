@@ -34,19 +34,25 @@ dependencyResolutionManagement {
 
 include(":app")
 
-include(":core:database")
 include(":core:network")
 include(":core:model")
-include(":core:storage")
 include(":core:ui")
-include(":core:di")
 include(":core:utils")
 
-include(":data:repository")
+include(":feature:starter:di")
+include(":feature:starter:data")
+include(":feature:starter:domain")
+include(":feature:starter:presentation")
 
-include(":feature:starter")
-include(":feature:drivers")
-include(":feature:teams")
+include(":feature:drivers:di")
+include(":feature:drivers:data")
+include(":feature:drivers:domain")
+include(":feature:drivers:presentation")
+
+include(":feature:teams:di")
+include(":feature:teams:data")
+include(":feature:teams:domain")
+include(":feature:teams:presentation")
 
 include(":androidApp")
 include(":desktopApp")
