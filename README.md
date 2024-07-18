@@ -10,6 +10,7 @@ Provides information on Formula 1 2024 teams and drivers
 - Android
 - IOS
 - Desktop
+- Web
 
 Live [View](https://ismai117.github.io/Formula1KMP/) (Safari not working!)
 
@@ -18,8 +19,7 @@ Live [View](https://ismai117.github.io/Formula1KMP/) (Safari not working!)
 - 🚏 Navigation - [Androidx](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-navigation-routing.html#sample-project)
 - 🏗 ViewModel - [Androidx](https://touchlab.co/kmp-viewmodel)
 - 🌎 Network - [Ktor](https://github.com/ktorio/ktor)
-- 📦 Storage - [Room](https://developer.android.com/kotlin/multiplatform/room)
-- 🔑 Preferences - [Datastore](https://developer.android.com/kotlin/multiplatform/datastore)
+- 📦 Storage - [KStore](https://github.com/xxfast/KStore)
 - 💉 Dependecy Injection - [Koin](https://github.com/InsertKoinIO/koin)
 - 🛢 Image Loading - [Coil](https://github.com/coil-kt/coil)
 - 📋 Logging - [Napier](https://github.com/AAkira/Napier)
@@ -58,4 +58,15 @@ Live [View](https://ismai117.github.io/Formula1KMP/) (Safari not working!)
   <img src="readme-images/desktpo/driver-detail.png">
   <img src="readme-images/desktop/teams-list.png">
   <img src="readme-images/desktop/team-detail.png">
+</p>
+<pre>  
+<h2 align="center">Web</h2>
+</pre>
+<p align="center">
+  <img src="readme-images/web/splash.png">
+  <img src="readme-images/web/starter.png">
+  <img src="readme-images/web/drivers-list.png">
+  <img src="readme-images/web/driver-detail.png">
+  <img src="readme-images/web/teams-list.png">
+  <img src="readme-images/web/team-detail.png">
 </p>
