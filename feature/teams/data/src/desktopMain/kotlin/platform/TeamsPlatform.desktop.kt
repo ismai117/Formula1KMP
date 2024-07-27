@@ -6,9 +6,6 @@ import io.github.xxfast.kstore.file.utils.FILE_SYSTEM
 import local.TeamEntity
 import net.harawata.appdirs.AppDirsFactory
 import okio.Path.Companion.toPath
-import org.koin.core.module.Module
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
 internal actual fun createKStore(): KStore<List<TeamEntity>> {
    return teams()
