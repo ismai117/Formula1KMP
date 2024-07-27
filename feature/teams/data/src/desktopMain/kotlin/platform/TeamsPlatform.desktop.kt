@@ -10,10 +10,8 @@ import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-actual fun teamsPlatformModule(): Module = module {
-    single<KStore<List<TeamEntity>>>(named("teams_kstore")) {
-        teams()
-    }
+internal actual fun createKStore(): KStore<List<TeamEntity>> {
+   return teams()
 }
 
 private const val PACKAGE_NAME = "org.ncgroup.formula1kmp"

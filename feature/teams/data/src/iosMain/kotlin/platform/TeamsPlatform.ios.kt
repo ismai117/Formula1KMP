@@ -11,10 +11,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import platform.Foundation.NSFileManager
 
-actual fun teamsPlatformModule(): Module = module {
-    single<KStore<List<TeamEntity>>>(named("teams_kstore")) {
-        teams()
-    }
+internal actual fun createKStore(): KStore<List<TeamEntity>> {
+    return teams()
 }
 
 @OptIn(ExperimentalKStoreApi::class)

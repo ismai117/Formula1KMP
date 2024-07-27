@@ -7,10 +7,8 @@ import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-actual fun teamsPlatformModule(): Module = module {
-    single<KStore<List<TeamEntity>>>(named("teams_kstore")) {
-        teams()
-    }
+internal actual fun createKStore(): KStore<List<TeamEntity>> {
+    return teams()
 }
 
 private fun teams(): KStore<List<TeamEntity>> {

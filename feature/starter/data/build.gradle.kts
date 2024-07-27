@@ -12,7 +12,6 @@ kotlin {
         browser()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
@@ -36,14 +35,12 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.multiplatformSettings)
-            implementation(libs.bundles.koin.common)
             implementation(libs.napier)
 
             implementation(project(":feature:starter:domain"))

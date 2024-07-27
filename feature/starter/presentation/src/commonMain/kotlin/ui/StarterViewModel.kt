@@ -1,12 +1,16 @@
 package ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
+import commonMain.StarterModule
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import starter.StarterRepository
+import kotlin.reflect.KClass
 
 data class StarterState(
     val isLoading: Boolean = false,
@@ -47,6 +51,16 @@ class StarterViewModel(
     private fun setStartedState(){
         viewModelScope.launch {
             starterRepository.setStartedState()
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+                return StarterViewModel(
+                    starterRepository = StarterModule.starterRepository
+                ) as T
+            }
         }
     }
 

@@ -15,7 +15,6 @@ kotlin {
         browser()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
@@ -39,7 +38,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
@@ -54,10 +52,10 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.ktor.common)
-            implementation(libs.bundles.koin.common)
             implementation(libs.bundles.colormath.common)
             implementation(libs.windowSizeClass)
 
+            implementation(project(":feature:drivers:di"))
             implementation(project(":feature:drivers:domain"))
 
             implementation(project(":core:model"))
