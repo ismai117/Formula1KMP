@@ -43,19 +43,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import getPlatform
-import org.koin.compose.koinInject
 import teams.Team
 import ui.sharedComponents.parallaxLayoutModifier
 import ui.sharedComponents.ImageLoader
 
 @Composable
 fun TeamDetailScreen(
+    teamsViewModel: TeamsViewModel = viewModel(factory = TeamsViewModel.Factory),
     teamName: String,
     navigateBack: () -> Unit
 ) {
 
-    val teamsViewModel = koinInject<TeamsViewModel>()
     val team by teamsViewModel.team.collectAsState()
 
     LaunchedEffect(Unit) {

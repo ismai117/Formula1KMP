@@ -13,7 +13,6 @@ kotlin {
         browser()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
@@ -38,15 +37,14 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.kstore.file)
-            implementation(libs.koin.android)
             implementation(libs.ktor.client.android)
+            implementation("androidx.startup:startup-runtime:1.1.1")
         }
 
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.ktor.common)
-            implementation(libs.bundles.koin.common)
             implementation(libs.napier)
             implementation(libs.kstore)
 
@@ -86,6 +84,9 @@ kotlin {
 android {
     namespace = "org.ncgroup.formula1kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+    sourceSets["main"].apply {
+        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

@@ -12,7 +12,6 @@ kotlin {
         browser()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
@@ -36,14 +35,11 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.kstore.file)
-            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(libs.kstore)
-            implementation(libs.bundles.koin.common)
             implementation(project(":feature:drivers:data"))
             implementation(project(":feature:drivers:domain"))
-            implementation(project(":feature:drivers:presentation"))
         }
 
         desktopMain.dependencies {

@@ -6,14 +6,9 @@ import io.github.xxfast.kstore.file.utils.FILE_SYSTEM
 import local.DriverEntity
 import net.harawata.appdirs.AppDirsFactory
 import okio.Path.Companion.toPath
-import org.koin.core.module.Module
-import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
-actual fun driversPlatformModule(): Module = module {
-    single<KStore<List<DriverEntity>>>(named("drivers_kstore")) {
-        drivers()
-    }
+internal actual fun createKStore(): KStore<List<DriverEntity>> {
+    return drivers()
 }
 
 private const val PACKAGE_NAME = "org.ncgroup.formula1kmp"

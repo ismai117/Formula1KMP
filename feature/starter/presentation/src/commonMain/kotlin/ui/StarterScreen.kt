@@ -37,24 +37,22 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import formula1kmp.feature.starter.presentation.generated.resources.Res
 import formula1kmp.feature.starter.presentation.generated.resources.bg
 import formula1kmp.feature.starter.presentation.generated.resources.logo
 import getPlatform
 import org.jetbrains.compose.resources.painterResource
-import org.koin.compose.koinInject
 
 @Composable
 fun StarterScreen(
+    starterViewModel: StarterViewModel = viewModel(factory = StarterViewModel.Factory),
+    driversViewModel: DriversViewModel = viewModel(factory = DriversViewModel.Factory),
+    teamsViewModel: TeamsViewModel = viewModel(factory = TeamsViewModel.Factory),
     navigateToMainScreen: () -> Unit,
 ) {
 
-    val starterViewModel = koinInject<StarterViewModel>()
-
-    val driversViewModel = koinInject<DriversViewModel>()
     val driversState by driversViewModel.state.collectAsState()
-
-    val teamsViewModel = koinInject<TeamsViewModel>()
     val teamsState by teamsViewModel.state.collectAsState()
 
     StarterScreenContent(

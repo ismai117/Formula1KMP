@@ -43,7 +43,6 @@ kotlin {
         binaries.executable()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         moduleName = "webApp"
         browser {
@@ -70,7 +69,6 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation(libs.bundles.koin.common)
             }
         }
 

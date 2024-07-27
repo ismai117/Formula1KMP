@@ -15,7 +15,6 @@ kotlin {
         browser()
     }
 
-    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
@@ -39,7 +38,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
@@ -52,8 +50,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
-            implementation(libs.bundles.koin.common)
 
+            implementation(project(":feature:starter:di"))
             implementation(project(":feature:starter:domain"))
             implementation(project(":feature:drivers:presentation"))
             implementation(project(":feature:teams:presentation"))
