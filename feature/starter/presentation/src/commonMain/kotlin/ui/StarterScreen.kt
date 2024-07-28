@@ -37,19 +37,23 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import formula1kmp.feature.starter.presentation.generated.resources.Res
 import formula1kmp.feature.starter.presentation.generated.resources.bg
 import formula1kmp.feature.starter.presentation.generated.resources.logo
 import getPlatform
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import org.jetbrains.compose.resources.painterResource
 
+typealias StarterScreen = @Composable (navigateToMainScreen: () -> Unit) -> Unit
+
+@Inject
 @Composable
 fun StarterScreen(
-    starterViewModel: StarterViewModel = viewModel(factory = StarterViewModel.Factory),
-    driversViewModel: DriversViewModel = viewModel(factory = DriversViewModel.Factory),
-    teamsViewModel: TeamsViewModel = viewModel(factory = TeamsViewModel.Factory),
-    navigateToMainScreen: () -> Unit,
+    starterViewModel: StarterViewModel,
+    driversViewModel: DriversViewModel,
+    teamsViewModel: TeamsViewModel,
+    @Assisted navigateToMainScreen: () -> Unit,
 ) {
 
     val driversState by driversViewModel.state.collectAsState()
@@ -87,10 +91,11 @@ fun StarterScreenContent(
         }
     }
     LaunchedEffect(driversState.message, teamsState.message) {
-        when{
+        when {
             driversState.message.isNotBlank() -> {
                 hostState.showSnackbar(driversState.message)
             }
+
             teamsState.message.isNotBlank() -> {
                 hostState.showSnackbar(teamsState.message)
             }
@@ -102,11 +107,11 @@ fun StarterScreenContent(
             SnackbarHost(
                 hostState = hostState
             ) { data ->
-                Snackbar (
+                Snackbar(
                     modifier = Modifier
                         .padding(horizontal = 8.dp, vertical = 8.dp)
                         .testTag("snackBar")
-                ){
+                ) {
                     Text(text = data.visuals.message, modifier = Modifier.testTag("snackBar_text"))
                 }
             }
@@ -140,7 +145,7 @@ private fun Mobile(
     modifier: Modifier = Modifier,
     driversState: DriversState,
     teamsState: TeamsState,
-    getStarted: () -> Unit
+    getStarted: () -> Unit,
 ) {
 
     Box(
@@ -172,7 +177,7 @@ private fun NonMobile(
     modifier: Modifier = Modifier,
     driversState: DriversState,
     teamsState: TeamsState,
-    getStarted: () -> Unit
+    getStarted: () -> Unit,
 ) {
 
     Row(
@@ -217,7 +222,7 @@ private fun NonMobile(
 
 @Composable
 private fun BackgroundImage(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
 
     Image(
@@ -233,8 +238,8 @@ private fun BackgroundImage(
 
 @Composable
 private fun BoxScope.HeaderContent(
-    modifier: Modifier = Modifier
-){
+    modifier: Modifier = Modifier,
+) {
 
     Column(
         modifier = modifier
@@ -266,7 +271,7 @@ private fun BoxScope.HeaderContent(
 
 @Composable
 private fun BoxScope.LoadingContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
 
     Box(
@@ -305,7 +310,7 @@ private fun BoxScope.LoadingContent(
 @Composable
 private fun BoxScope.GetStartedButton(
     modifier: Modifier = Modifier,
-    getStarted: () -> Unit
+    getStarted: () -> Unit,
 ) {
 
     Box(

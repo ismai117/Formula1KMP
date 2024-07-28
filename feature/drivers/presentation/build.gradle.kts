@@ -54,8 +54,8 @@ kotlin {
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.colormath.common)
             implementation(libs.windowSizeClass)
+            api(libs.kotlin.inject.runtime)
 
-            implementation(project(":feature:drivers:di"))
             implementation(project(":feature:drivers:domain"))
 
             implementation(project(":core:model"))

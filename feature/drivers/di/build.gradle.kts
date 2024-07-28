@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -36,10 +38,15 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kstore.file)
         }
+
         commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kstore)
+            api(libs.kotlin.inject.runtime)
             implementation(project(":feature:drivers:data"))
             implementation(project(":feature:drivers:domain"))
+            implementation(project(":feature:drivers:presentation"))
         }
 
         desktopMain.dependencies {

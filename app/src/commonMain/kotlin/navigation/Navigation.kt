@@ -1,5 +1,6 @@
 package navigation
 
+import AppComponent
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
@@ -9,14 +10,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
-import ui.DriverDetailScreen
-import ui.StarterScreen
-import ui.TeamDetailScreen
 import ui.main.horizontalPager.HorizontalPagerScreen
 import ui.splash.SplashScreen
 
 @Composable
 fun Navigation(
+    appComponent: AppComponent,
     navController: NavController
 ){
     NavHost(
@@ -34,17 +33,19 @@ fun Navigation(
             )
         }
         composable(route = StarterScreen){
-            StarterScreen(
-                navigateToMainScreen = {
-                    navController.navigate(MainGraph)
-                }
-            )
+            appComponent.starterComponent.starterScreen {
+                navController.navigate(MainGraph)
+            }
         }
-        mainGraph(navController)
+        mainGraph(
+            appComponent = appComponent,
+            navController = navController
+        )
     }
 }
 
 fun NavGraphBuilder.mainGraph(
+    appComponent: AppComponent,
     navController: NavController,
 ) {
     navigation(
@@ -53,6 +54,7 @@ fun NavGraphBuilder.mainGraph(
     ){
         composable(route = HorizontalPagerScreen) {
             HorizontalPagerScreen(
+                appComponent = appComponent,
                 navigateToDriverDetailScreen = { driverNumber ->
                     navController.navigate("$DriverDetailScreen/$driverNumber")
                 },
@@ -66,12 +68,9 @@ fun NavGraphBuilder.mainGraph(
             arguments = listOf(navArgument("driverNumber"){ type = NavType.IntType })
         ){ backStackEntry ->
             backStackEntry.arguments?.getInt("driverNumber")?.let { driverNumber ->
-                DriverDetailScreen(
-                    driverNumber = driverNumber,
-                    navigateBack = {
-                        navController.popBackStack()
-                    }
-                )
+                appComponent.driversComponent.driverDetailScreen(driverNumber){
+                    navController.popBackStack()
+                }
             }
         }
         composable(
@@ -79,12 +78,9 @@ fun NavGraphBuilder.mainGraph(
             arguments = listOf(navArgument("teamName"){ type = NavType.StringType })
         ) { backStackEntry ->
             backStackEntry.arguments?.getString("teamName")?.let { teamName ->
-                TeamDetailScreen(
-                    teamName = teamName,
-                    navigateBack = {
-                        navController.popBackStack()
-                    }
-                )
+                appComponent.teamsComponent.teamDetailScreen(teamName){
+                    navController.popBackStack()
+                }
             }
         }
     }

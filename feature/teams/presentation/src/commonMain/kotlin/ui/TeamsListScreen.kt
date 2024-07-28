@@ -29,17 +29,21 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import teams.Team
 import ui.sharedComponents.VerticalGrid
 import ui.sharedComponents.ImageLoader
 
+typealias TeamsListScreen = @Composable (navigateToTeamDetailScreen: (String) -> Unit) -> Unit
+
+@Inject
 @Composable
 fun TeamsListScreen(
-    teamsViewModel: TeamsViewModel = viewModel(factory = TeamsViewModel.Factory),
-    navigateToTeamDetailScreen: (String) -> Unit
+    teamsViewModel: TeamsViewModel,
+    @Assisted navigateToTeamDetailScreen: (String) -> Unit
 ) {
 
     val state by teamsViewModel.state.collectAsState()

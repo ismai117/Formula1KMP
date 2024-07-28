@@ -10,14 +10,20 @@ import ui.sharedComponents.setSingletonImageLoader
 
 @Composable
 @Preview
-fun App(disableDiskCache: Boolean = false) = AppTheme {
+fun App(
+    appComponent: AppComponent,
+    disableDiskCache: Boolean = false
+) = AppTheme {
 
     setSingletonImageLoader(disableDiskCache)
 
     val navController = rememberNavController()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Navigation(navController = navController)
+        Navigation(
+            appComponent = appComponent,
+            navController = navController
+        )
     }
 
 }

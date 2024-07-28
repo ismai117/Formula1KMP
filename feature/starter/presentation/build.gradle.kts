@@ -50,8 +50,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
+            api(libs.kotlin.inject.runtime)
 
-            implementation(project(":feature:starter:di"))
             implementation(project(":feature:starter:domain"))
             implementation(project(":feature:drivers:presentation"))
             implementation(project(":feature:teams:presentation"))

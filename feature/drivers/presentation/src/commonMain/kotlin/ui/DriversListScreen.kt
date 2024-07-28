@@ -31,13 +31,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.github.ajalt.colormath.extensions.android.composecolor.toComposeColor
 import com.github.ajalt.colormath.parse
 import drivers.Driver
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import ui.sharedComponents.ImageLoader
 import ui.sharedComponents.VerticalGrid
 
+typealias DriversListScreen = @Composable (navigateToDriverDetailScreen: (Int) -> Unit) -> Unit
+
+@Inject
 @Composable
 fun DriversListScreen(
-    driversViewModel: DriversViewModel = viewModel(factory = DriversViewModel.Factory),
-    navigateToDriverDetailScreen: (Int) -> Unit
+    driversViewModel: DriversViewModel,
+    @Assisted navigateToDriverDetailScreen: (Int) -> Unit
 ) {
 
     val state by driversViewModel.state.collectAsState()

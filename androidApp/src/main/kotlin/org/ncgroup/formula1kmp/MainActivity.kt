@@ -20,14 +20,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        val applicationComponent = (applicationContext as Formula1KMPApplication).component
         setContent {
-            App()
+            App(applicationComponent)
         }
     }
 }
 
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
-}
+//@Preview
+//@Composable
+//fun AppAndroidPreview() {
+//    val applicationComponent = (applicationContext as Formula1KMPApplication).component
+//    App()
+//}

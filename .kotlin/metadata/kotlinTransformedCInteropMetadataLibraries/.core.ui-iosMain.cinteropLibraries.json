@@ -10,13 +10,13 @@
     "sourceSetName": "uikitMain"
   },
   {
-    "moduleId": "io.ktor:ktor-utils:3.0.0-wasm2",
-    "file": "/Users/ismail/StudioProjects/Formula1KMP/.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries/io.ktor-ktor-utils-3.0.0-wasm2-iosMain-cinterop/io.ktor_ktor-utils-cinterop-threadUtils-rkr5ww.klib",
+    "moduleId": "io.ktor:ktor-utils:3.0.0-beta-2",
+    "file": "/Users/ismail/StudioProjects/Formula1KMP/.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries/io.ktor-ktor-utils-3.0.0-beta-2-iosMain-cinterop/io.ktor_ktor-utils-cinterop-threadUtils-MJWyiw.klib",
     "sourceSetName": "iosMain"
   },
   {
-    "moduleId": "io.ktor:ktor-io:3.0.0-wasm2",
-    "file": "/Users/ismail/StudioProjects/Formula1KMP/.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries/io.ktor-ktor-io-3.0.0-wasm2-iosMain-cinterop/io.ktor_ktor-io-cinterop-mutex-GuQq0w.klib",
+    "moduleId": "io.ktor:ktor-io:3.0.0-beta-2",
+    "file": "/Users/ismail/StudioProjects/Formula1KMP/.kotlin/metadata/kotlinTransformedCInteropMetadataLibraries/io.ktor-ktor-io-3.0.0-beta-2-iosMain-cinterop/io.ktor_ktor-io-cinterop-mutex-XDpQUg.klib",
     "sourceSetName": "iosMain"
   }
 ]

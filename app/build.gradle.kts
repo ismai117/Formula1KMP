@@ -1,7 +1,10 @@
+import org.gradle.configurationcache.extensions.capitalized
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
@@ -9,6 +12,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinx.serialization)
 }
 
@@ -81,14 +85,15 @@ kotlin {
             implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.colormath.common)
             implementation(libs.constraintlayout)
+            implementation(libs.kotlin.inject.runtime)
 
             implementation(project(":core:model"))
             implementation(project(":core:ui"))
             implementation(project(":core:utils"))
 
-            implementation(project(":feature:starter:presentation"))
-            implementation(project(":feature:drivers:presentation"))
-            implementation(project(":feature:teams:presentation"))
+            implementation(project(":feature:starter:di"))
+            implementation(project(":feature:drivers:di"))
+            implementation(project(":feature:teams:di"))
 
 
         }
@@ -119,5 +124,19 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+ksp {
+    arg("me.tatarka.inject.generateCompanionExtensions", "true")
+}
+
+dependencies {
+    add("kspAndroid", libs.kotlin.inject.compiler)
+    afterEvaluate {
+        add("kspIosX64", libs.kotlin.inject.compiler)
+        add("kspIosArm64", libs.kotlin.inject.compiler)
+        add("kspIosSimulatorArm64", libs.kotlin.inject.compiler)
+        add("kspDesktop", libs.kotlin.inject.compiler)
     }
 }

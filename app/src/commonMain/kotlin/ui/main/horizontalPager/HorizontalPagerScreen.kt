@@ -1,5 +1,6 @@
 package ui.main.horizontalPager
 
+import AppComponent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -29,12 +30,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import getPlatform
 import kotlinx.coroutines.launch
-import ui.DriversListScreen
-import ui.TeamsListScreen
 import ui.sharedComponents.Header
 
 @Composable
 fun HorizontalPagerScreen(
+    appComponent: AppComponent,
     navigateToDriverDetailScreen: (Int) -> Unit,
     navigateToTeamDetailScreen: (String) -> Unit
 ) {
@@ -44,6 +44,7 @@ fun HorizontalPagerScreen(
     var selectedTabIndex by rememberSaveable { mutableStateOf(0) }
 
     HorizontalPagerScreenContent(
+        appComponent = appComponent,
         pagerState = pagerState,
         selectedTabIndex = selectedTabIndex,
         selectedTabIndexOnChange = { index ->
@@ -60,6 +61,7 @@ fun HorizontalPagerScreen(
 @Composable
 fun HorizontalPagerScreenContent(
     modifier: Modifier = Modifier,
+    appComponent: AppComponent,
     pagerState: PagerState,
     selectedTabIndex: Int,
     selectedTabIndexOnChange: (Int) -> Unit,
@@ -118,11 +120,11 @@ fun HorizontalPagerScreenContent(
             ) { page ->
                 when (page) {
                     0 -> {
-                        DriversListScreen(navigateToDriverDetailScreen = navigateToDriverDetailScreen)
+                        appComponent.driversComponent.driversListScreen(navigateToDriverDetailScreen)
                     }
 
                     1 -> {
-                        TeamsListScreen(navigateToTeamDetailScreen = navigateToTeamDetailScreen)
+                       appComponent.teamsComponent.teamsListScreen(navigateToTeamDetailScreen)
                     }
                 }
             }

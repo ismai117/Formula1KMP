@@ -32,21 +32,13 @@ kotlin {
 
     sourceSets {
 
-        val desktopMain by getting
-
-        androidMain.dependencies {
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.kstore.file)
-            implementation(libs.ktor.client.android)
-            implementation("androidx.startup:startup-runtime:1.1.1")
-        }
-
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.ktor.common)
             implementation(libs.napier)
             implementation(libs.kstore)
+            api(libs.kotlin.inject.runtime)
 
             implementation(project(":feature:teams:domain"))
 
@@ -56,26 +48,6 @@ kotlin {
 
         }
 
-        desktopMain.dependencies {
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.kstore.file)
-            implementation(libs.harawata.appdirs)
-            implementation(libs.ktor.client.java)
-        }
-
-        iosMain.dependencies {
-            implementation(libs.kstore.file)
-            implementation(libs.ktor.client.darwin)
-        }
-
-        jsMain.dependencies {
-            implementation(libs.kstore.storage)
-            implementation(libs.ktor.client.js)
-        }
-
-        wasmJsMain.dependencies {
-            implementation(libs.kstore.storage)
-        }
 
     }
 

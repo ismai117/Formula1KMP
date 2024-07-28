@@ -6,7 +6,9 @@ import io.github.xxfast.kstore.extensions.getOrEmpty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import local.DriverEntity.Companion.fromDriver
+import me.tatarka.inject.annotations.Inject
 
+@Inject
 class DriversLocalService(
     private val kStore: KStore<List<DriverEntity>>
 ) {

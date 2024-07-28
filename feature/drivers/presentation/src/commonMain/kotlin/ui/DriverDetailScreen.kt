@@ -41,17 +41,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import drivers.Driver
 import getPlatform
+import me.tatarka.inject.annotations.Assisted
+import me.tatarka.inject.annotations.Inject
 import ui.sharedComponents.ImageLoader
 import ui.sharedComponents.parallaxLayoutModifier
 
+typealias DriverDetailScreen = @Composable (driverNumber: Int, navigateBack: () -> Unit) -> Unit
+
+@Inject
 @Composable
 fun DriverDetailScreen(
-    driversViewModel: DriversViewModel = viewModel(factory = DriversViewModel.Factory),
-    driverNumber: Int,
-    navigateBack: () -> Unit
+    driversViewModel: DriversViewModel,
+    @Assisted driverNumber: Int,
+    @Assisted navigateBack: () -> Unit
 ) {
 
     val driver by driversViewModel.driver.collectAsState()

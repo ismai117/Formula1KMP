@@ -1,19 +1,15 @@
 package ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
-import commonMain.TeamsModule
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import teams.Team
-import kotlinx.coroutines.Dispatchers
+import me.tatarka.inject.annotations.Inject
 import teams.TeamsRepository
 import utils.Resource
-import kotlin.reflect.KClass
 
 data class TeamsState(
     val isLoading: Boolean = false,
@@ -22,6 +18,7 @@ data class TeamsState(
     val teams: List<Team> = emptyList()
 )
 
+@Inject
 class TeamsViewModel(
     private val teamsRepository: TeamsRepository
 ) : ViewModel(){
@@ -54,16 +51,6 @@ class TeamsViewModel(
     fun getTeamByTeamName(name: String) {
         viewModelScope.launch {
             _team.update { teamsRepository.getTeamByTeamName(name) }
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
-                return TeamsViewModel(
-                    teamsRepository = TeamsModule.teamsRepository
-                ) as T
-            }
         }
     }
 

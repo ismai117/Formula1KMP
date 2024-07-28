@@ -53,8 +53,8 @@ kotlin {
             implementation(libs.bundles.ktor.common)
             implementation(libs.bundles.colormath.common)
             implementation(libs.windowSizeClass)
+            api(libs.kotlin.inject.runtime)
 
-            implementation(project(":feature:teams:di"))
             implementation(project(":feature:teams:domain"))
 
             implementation(project(":core:model"))

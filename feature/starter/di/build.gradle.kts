@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -31,8 +32,10 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            api(libs.kotlin.inject.runtime)
             implementation(project(":feature:starter:data"))
             implementation(project(":feature:starter:domain"))
+            implementation(project(":feature:starter:presentation"))
         }
     }
 

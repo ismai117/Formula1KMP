@@ -12,15 +12,17 @@ androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 androidx-lifecycle = "2.8.0"
 androidx-navigation = "2.8.0-alpha08"
-compose = "1.6.8"
+compose = "1.7.0-beta06"
 compose-plugin = "1.7.0-alpha01"
 junit = "4.13.2"
-kotlin = "2.0.0"
-ktor = "3.0.0-wasm2"
+kotlin = "2.0.20-Beta2"
+ksp = "2.0.20-Beta2-1.0.23"
+ktor = "3.0.0-beta-2"
 kotlinx-coroutines = "1.9.0-RC"
 kotlinx-serialization = "1.7.1"
+kotlin-inject = "0.7.1"
 napier = "2.7.1"
-coil = "3.0.0-alpha07"
+coil = "3.0.0-alpha09"
 colormath = "3.5.0"
 windowSizeClass = "0.5.0"
 constraintlayout = "0.4.0"
@@ -51,6 +53,9 @@ kotlinx-coroutines-swing   = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 
+kotlin-inject-compiler = { module = "me.tatarka.inject:kotlin-inject-compiler-ksp", version.ref = "kotlin-inject" }
+kotlin-inject-runtime = { module = "me.tatarka.inject:kotlin-inject-runtime", version.ref = "kotlin-inject" }
+
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
@@ -66,7 +71,7 @@ napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil" }
-coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
 coil-mp = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 
 colormath  = { module = "com.github.ajalt.colormath:colormath", version.ref = "colormath" }
@@ -95,4 +100,5 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

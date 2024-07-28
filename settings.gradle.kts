@@ -26,35 +26,32 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/kotlin/p/wasm/experimental")
         maven("https://maven.pkg.jetbrains.space/public/p/ktor/eap")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
     }
 }
 
-include(":app")
-
-include(":core:network")
-include(":core:model")
-include(":core:ui")
-include(":core:utils")
-
-include(":feature:starter:di")
-include(":feature:starter:data")
-include(":feature:starter:domain")
-include(":feature:starter:presentation")
-
-include(":feature:drivers:di")
-include(":feature:drivers:data")
-include(":feature:drivers:domain")
-include(":feature:drivers:presentation")
-
-include(":feature:teams:di")
-include(":feature:teams:data")
-include(":feature:teams:domain")
-include(":feature:teams:presentation")
-
-include(":androidApp")
-include(":desktopApp")
-include(":webApp")
+include(
+    ":app",
+    ":core:base",
+    ":core:network",
+    ":core:model",
+    ":core:ui",
+    ":core:utils",
+    ":feature:starter:di",
+    ":feature:starter:data",
+    ":feature:starter:domain",
+    ":feature:starter:presentation",
+    ":feature:drivers:di",
+    ":feature:drivers:data",
+    ":feature:drivers:domain",
+    ":feature:drivers:presentation",
+    ":feature:teams:di",
+    ":feature:teams:data",
+    ":feature:teams:domain",
+    ":feature:teams:presentation",
+    ":androidApp",
+    ":desktopApp",
+    ":webApp"
+)
 

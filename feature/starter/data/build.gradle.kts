@@ -31,27 +31,18 @@ kotlin {
 
     sourceSets {
 
-        val desktopMain by getting
-
-        androidMain.dependencies {
-            implementation(libs.kotlinx.coroutines.android)
-        }
-
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.multiplatformSettings)
             implementation(libs.napier)
+            api(libs.kotlin.inject.runtime)
 
             implementation(project(":feature:starter:domain"))
 
             implementation(project(":core:model"))
             implementation(project(":core:utils"))
 
-        }
-
-        desktopMain.dependencies {
-            implementation(libs.kotlinx.coroutines.swing)
         }
 
 

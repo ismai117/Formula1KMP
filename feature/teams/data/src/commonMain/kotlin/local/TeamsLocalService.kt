@@ -5,8 +5,10 @@ import io.github.xxfast.kstore.extensions.getOrEmpty
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import local.TeamEntity.Companion.fromTeam
+import me.tatarka.inject.annotations.Inject
 import teams.Team
 
+@Inject
 class TeamsLocalService(
     private val kStore: KStore<List<TeamEntity>>
 ) {
