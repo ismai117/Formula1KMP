@@ -8,7 +8,7 @@ class StarterLocalService() {
     private val settings: Settings = Settings()
 
     fun getStartedState(): Boolean {
-        return false
+        return settings.getBoolean("isStarted", false)
     }
 
     fun setStartedState() {
